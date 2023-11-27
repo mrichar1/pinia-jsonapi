@@ -1,16 +1,14 @@
 /**
- * Vuex getters, used via `this.$store.getters`, e.g.:
+ * Pinia getters, used via `this.$store.getters`, e.g.:
  * `this.$store.getters['jv/get'](<args>)`
  *
  * @namespace getters
- * @memberof module:jsonapi-vuex.jsonapiModule
- * @param {object} conf - a jsonapi-vuex config object
+ * @memberof module:jsonapi-pinia.createJsonapiStore
+ * @param {object} conf - a jsonapi-pinia config object
  */
 
 import get from 'lodash/get'
 import { JSONPath } from 'jsonpath-plus'
-
-// import { utils } from './jsonapi-vuex'
 
 export default (conf, utils) => {
   // Short var name
@@ -19,7 +17,7 @@ export default (conf, utils) => {
     /**
      * Get record(s) from the store
      *
-     * @memberof module:jsonapi-vuex.jsonapiModule.getters
+     * @memberof module:jsonapi-pinia.createJsonapiStore.getters
      * @param {(string|object)} data
      * @param {string}  - A URL path to an item - e.g. `endpoint/1`
      * @param {object}  - A restructured object  - e.g. `{ _jv: { type: "endpoint", id: "1" } }`
@@ -72,7 +70,7 @@ export default (conf, utils) => {
     /**
      * Get the related record(s) of a record from the store
      *
-     * @memberof module:jsonapi-vuex.jsonapiModule.getters
+     * @memberof module:jsonapi-pinia.createJsonapiStore.getters
      * @param {(string|object)} data
      * @param {string}  - A URL path to an item - e.g. `endpoint/1`
      * @param {object}  - A restructured object  - e.g. `{ _jv: { type: "endpoint", id: "1" } }`

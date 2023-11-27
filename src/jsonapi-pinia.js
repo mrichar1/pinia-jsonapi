@@ -1,5 +1,5 @@
 /**
- * @module jsonapi-vuex
+ * @module jsonapi-pinia
  */
 import { defineStore } from 'pinia'
 import actions from './actions'
@@ -8,11 +8,11 @@ import getters from './getters'
 import { Utils, ActionStatus } from './lib'
 
 /**
- * jsonapi-vuex pinia store
+ * jsonapi-pinia pinia store
  * @namespace
- * @memberof module:jsonapi-vuex
+ * @memberof module:jsonapi-pinia
  * @param {axios} api - an axios instance
- * @param {object} [conf={}] - jsonapi-vuex configuation
+ * @param {object} [conf={}] - jsonapi-pinia configuation
  * @param {string} [name='jv'] - the pinia store id
  * @return {object} A Pinia store object
  */

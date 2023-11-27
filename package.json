@@ -1,7 +1,7 @@
 {
-  "name": "jsonapi-vuex",
-  "version": "5.13.1",
-  "description": "Access restructured JSONAPI data from a Vuex Store.",
+  "name": "jsonapi-pinia",
+  "version": "6.0.0",
+  "description": "Access restructured JSONAPI data from a Pinia Store.",
   "author": "Matthew Richardson <M.Richardson@ed.ac.uk>",
   "scripts": {
     "dev": "concurrently --success first --kill-others \"npm:fakeapiserver\" \"vite dev\"",
@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "unit": "vitest run --dir tests/unit"
   },
-  "main": "src/jsonapi-vuex.js",
+  "main": "src/jsonapi-pinia.js",
   "files": [
     "src/"
   ],
@@ -44,25 +44,19 @@
     "sinon-chai": "^3.7.0",
     "vite": "^4.4.5",
     "vitest": "^0.34.6",
-    "vue": "^3.3.8",
-    "vuex": "^4.1.0"
+    "vue": "^3.3.8"
   },
   "peerDependencies": {
-    "vue": "^3.0.11",
-    "vuex": "^4.0.0"
+    "vue": "^3.3.8"
   },
   "bugs": {
-    "url": "https://github.com/mrichar1/jsonapi-vuex/issues"
+    "url": "https://github.com/mrichar1/jsonapi-pinia/issues"
   },
-  "homepage": "https://github.com/mrichar1/jsonapi-vuex.git",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
+  "homepage": "https://github.com/mrichar1/jsonapi-pinia.git",
   "keywords": [
     "vue",
     "vuex",
+    "pinia",
     "jsonapi",
     "rest",
     "normalize",
@@ -77,6 +71,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mrichar1/jsonapi-vuex.git"
+    "url": "https://github.com/mrichar1/jsonapi-pinia.git"
   }
 }

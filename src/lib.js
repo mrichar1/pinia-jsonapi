@@ -1,13 +1,13 @@
 /**
- * A class containing utility functions for use with jsonapi-vuex
+ * A class containing utility functions for use with jsonapi-pinia
  *
- * **Note** - an instance of this class is exported as `utils` from `jsonapi-vuex`,
+ * **Note** - an instance of this class is exported as `utils` from `jsonapi-pinia`,
  * so it does not need to be used directly.
  *
  * @name Utils
  * @namespace utils
- * @memberof module:jsonapi-vuex
- * @param {object} conf - A jsonapi-vuex config object.
+ * @memberof module:jsonapi-pinia
+ * @param {object} conf - A jsonapi-pinia config object.
  */
 
 import get from 'lodash/get'
@@ -15,9 +15,9 @@ import isEqual from 'lodash/isEqual'
 import merge from 'lodash/merge'
 
 /**
- * Helper methods added to `_jv` by {@link module:jsonapi-vuex.utils.addJvHelpers}
+ * Helper methods added to `_jv` by {@link module:jsonapi-pinia.utils.addJvHelpers}
  * @namespace helpers
- * @memberof module:jsonapi-vuex.
+ * @memberof module:jsonapi-pinia.
  */
 
 /**
@@ -25,7 +25,7 @@ import merge from 'lodash/merge'
  * These are not available when the module is imported,
  * and are documented for module developers only.
  * @namespace _internal
- * @memberof module:jsonapi-vuex
+ * @memberof module:jsonapi-pinia
  */
 
 const Utils = class {
@@ -35,7 +35,7 @@ const Utils = class {
   }
 
   /**
-   * @memberof module:jsonapi-vuex._internal
+   * @memberof module:jsonapi-pinia._internal
    * @param {object} data - An object to be deep copied
    * @return {object} A deep copied object
    */
@@ -56,7 +56,7 @@ const Utils = class {
 
   /**
    * Add helper functions and getters to a restructured object
-   * @memberof module:jsonapi-vuex.utils
+   * @memberof module:jsonapi-pinia.utils
    * @param {object} obj - An object to assign helpers to
    * @return {object} A copy of the object with added helper functions/getters
    */
@@ -67,7 +67,7 @@ const Utils = class {
     if (obj[jvtag] && !hasProperty(obj[jvtag], 'isRel') && !hasProperty(obj[jvtag], 'isAttr')) {
       Object.assign(obj[jvtag], {
         /**
-         * @memberof module:jsonapi-vuex.helpers
+         * @memberof module:jsonapi-pinia.helpers
          * @param {string} name - Name of a (potential) relationship
          * returns {boolean} true if the name given is a relationship of this object
          */
@@ -75,7 +75,7 @@ const Utils = class {
           return hasProperty(get(obj, [jvtag, 'relationships'], {}), name)
         },
         /**
-         * @memberof module:jsonapi-vuex.helpers
+         * @memberof module:jsonapi-pinia.helpers
          * @param {string} name - Name of a (potential) attribute
          * returns {boolean} true if the name given is an attribute of this object
          */
@@ -85,7 +85,7 @@ const Utils = class {
       })
     }
     /**
-     * @memberof module:jsonapi-vuex.helpers
+     * @memberof module:jsonapi-pinia.helpers
      * @name rels
      * @property {object} - An object containing all relationships for this object
      */
@@ -102,7 +102,7 @@ const Utils = class {
         configurable: true,
       })
       /**
-       * @memberof module:jsonapi-vuex.helpers
+       * @memberof module:jsonapi-pinia.helpers
        * @name attrs
        * @property {object} - An object containing all attributes for this object
        */
@@ -125,10 +125,10 @@ const Utils = class {
 
   /**
    * If `followRelationshipData` is set, call `followRelationships` for either an item or a collection
-   * See {@link module:jsonapi-vuex~Configuration|Configuration}
-   * @memberof module:jsonapi-vuex._internal
-   * @param {object} state - Vuex state object
-   * @param {object} getters - Vuex getters object
+   * See {@link module:jsonapi-pinia~Configuration|Configuration}
+   * @memberof module:jsonapi-pinia._internal
+   * @param {object} state - Pinia state object
+   * @param {object} getters - Pinia getters object
    * @param {object} records - Record(s) to follow relationships for.
    * @param {array} seen - internal recursion state-tracking
    * @return {object} records with relationships followed
@@ -160,10 +160,10 @@ const Utils = class {
   /**
    * A function that cleans up a patch object, so that it doesn't introduce unexpected changes when sent to the API.
    * It removes any attributes which are unchanged from the store, to minimise accidental reversions.
-   * It also strips out any of links, relationships and meta from `_jv` - See {@link module:jsonapi-vuex~Configuration|Configuration}
-   * @memberof module:jsonapi-vuex.utils
+   * It also strips out any of links, relationships and meta from `_jv` - See {@link module:jsonapi-pinia~Configuration|Configuration}
+   * @memberof module:jsonapi-pinia.utils
    * @param {object} patch - A restructured object to be cleaned
-   * @param {object} state={} - Vuex state object (for patch comparison)
+   * @param {object} state={} - Pinia state object (for patch comparison)
    * @param {array} jvProps='[]' - _jv Properties to be kept
    * @return {object} A cleaned copy of the patch object
    */
@@ -199,7 +199,7 @@ const Utils = class {
 
   /**
    * Deep copy a normalised object, then re-add helper nethods
-   * @memberof module:jsonapi-vuex.utils
+   * @memberof module:jsonapi-pinia.utils
    * @param {object} obj - An object to be deep copied
    * @return {object} A deep copied object, with Helper functions added
    */
@@ -219,12 +219,12 @@ const Utils = class {
    * We can't add rels to the original object, otherwise Vue's watchers
    * spot the potential for loops (which we are guarding against) and throw an error
    *
-   * @memberof module:jsonapi-vuex._internal
-   * @param {object} state - Vuex state object
-   * @param {object} getters - Vuex getters object
+   * @memberof module:jsonapi-pinia._internal
+   * @param {object} state - Pinia state object
+   * @param {object} getters - Pinia getters object
    * @param {object} record - Record to get relationships for.
    * @param {array} seen - internal recursion state-tracking
-   * @return {object} records with relationships followed and helper functions added (see {@link module:jsonapi-vuex.utils.addJvHelpers})
+   * @return {object} records with relationships followed and helper functions added (see {@link module:jsonapi-pinia.utils.addJvHelpers})
    */
   followRelationships(store, record, seen) {
     let data = {}
@@ -239,12 +239,12 @@ const Utils = class {
 
   /**
    * Make a copy of a restructured object, adding (js) getters for its relationships
-   * That call the (vuex) get getter to fetch that record from the store
+   * That call the getData getter to fetch that record from the store
    *
    * Already seen objects are tracked using the 'seen' param to avoid loops.
    *
-   * @memberof module:jsonapi-vuex._internal
-   * @param {object} getters - Vuex getters object
+   * @memberof module:jsonapi-pinia._internal
+   * @param {object} getters - Pinia getters object
    * @param {object} parent - The object whose relationships should be fetched
    * @param {array} seen - Internal recursion state tracking
    * @returns {object} A copy of the object with getter relationships added
@@ -302,7 +302,7 @@ const Utils = class {
 
   /**
    * Get the type, id and relationships from a restructured object
-   * @memberof module:jsonapi-vuex.utils
+   * @memberof module:jsonapi-pinia.utils
    * @param {object} data - A restructured object
    * @param {boolean} encode=true - url-encode the returned values
    * @return {array} An array (optionally) containing type, id and rels
@@ -333,7 +333,7 @@ const Utils = class {
 
   /**
    * Return the URL path (links.self) or construct from type/id
-   * @memberof module:jsonapi-vuex.utils
+   * @memberof module:jsonapi-pinia.utils
    * @param {object} data - A restructured object
    * @return {string} The record's URL path
    */
@@ -358,7 +358,7 @@ const Utils = class {
    * Shorthand for the 'safe' `hasOwnProperty` as described here:
    * [eslint: no-prototype-builtins](https://eslint.org/docs/rules/no-prototype-builtins])
    * @name hasProperty
-   * @memberof module:jsonapi-vuex._internal
+   * @memberof module:jsonapi-pinia._internal
    */
   hasProperty(obj, prop) {
     return Object.prototype.hasOwnProperty.call(obj, prop)
@@ -366,7 +366,7 @@ const Utils = class {
 
   /**
    * Convert JSONAPI record(s) to restructured data
-   * @memberof module:jsonapi-vuex.utils
+   * @memberof module:jsonapi-pinia.utils
    * @param {object} data - The `data` object from a JSONAPI record
    * @return {object} Restructured data
    */
@@ -387,8 +387,8 @@ const Utils = class {
   }
 
   /**
-   * Restructure a single jsonapi item. Used internally by {@link module:jsonapi-vuex.utils.jsonapiToNorm}
-   * @memberof module:jsonapi-vuex._internal
+   * Restructure a single jsonapi item. Used internally by {@link module:jsonapi-pinia.utils.jsonapiToNorm}
+   * @memberof module:jsonapi-pinia._internal
    * @param {object} data - JSONAPI record
    * @param {boolean} recordType=isData - Set a key in _jv which reflects if this came 'direct' from 'data' or via 'included'
    * @return {object} Restructured data
@@ -409,7 +409,7 @@ const Utils = class {
 
   /**
    * Convert one or more restructured records to jsonapi
-   * @memberof module:jsonapi-vuex.utils
+   * @memberof module:jsonapi-pinia.utils
    * @param {object} record - A restructured record to be convert to JSONAPI
    * @return {object} JSONAPI record
    */
@@ -431,8 +431,8 @@ const Utils = class {
   }
 
   /**
-   * Convert a single restructured item to JSONAPI. Used internally by {@link module:jsonapi-vuex.utils.normToJsonapi}
-   * @memberof module:jsonapi-vuex._internal
+   * Convert a single restructured item to JSONAPI. Used internally by {@link module:jsonapi-pinia.utils.normToJsonapi}
+   * @memberof module:jsonapi-pinia._internal
    * @param {object} data - Restructured data
    * @return {object}  JSONAPI record
    */
@@ -456,7 +456,7 @@ const Utils = class {
 
   /**
    * Convert one or more restructured records to nested (type & id) 'store' object
-   * @memberof module:jsonapi-vuex.utils
+   * @memberof module:jsonapi-pinia.utils
    * @param {object} record - A restructured record to be convert to JSONAPI
    * @return {object} Structured 'store' object
    */
@@ -483,8 +483,8 @@ const Utils = class {
 
   /**
    * If `preserveJSON` is set, add the returned JSONAPI in a get action to _jv.json
-   * See {@link module:jsonapi-vuex~Configuration|Configuration}
-   * @memberof module:jsonapi-vuex._internal
+   * See {@link module:jsonapi-pinia~Configuration|Configuration}
+   * @memberof module:jsonapi-pinia._internal
    * @param {object} data - Restructured record
    * @param {object} json - JSONAPI record
    * @return {object} data record, with JSONAPI added in _jv.json
@@ -501,9 +501,9 @@ const Utils = class {
   }
 
   /**
-   * Restructure all records in 'included' (using {@link module:jsonapi-vuex._internal.jsonapiToNormItem})
+   * Restructure all records in 'included' (using {@link module:jsonapi-pinia._internal.jsonapiToNormItem})
    * and add to the store.
-   * @memberof module:jsonapi-vuex._internal
+   * @memberof module:jsonapi-pinia._internal
    * @param {object} results - JSONAPI record
    */
   getIncludedRecords(results) {
@@ -512,9 +512,9 @@ const Utils = class {
 
   /**
    * Transform args to always be an array (data and config options).
-   * See {@link module:jsonapi-vuex.actions} for an explanation of why this function is needed.
+   * See {@link module:jsonapi-pinia.actions} for an explanation of why this function is needed.
    *
-   * @memberof module:jsonapi-vuex._internal
+   * @memberof module:jsonapi-pinia._internal
    * @param {(string|array)} args - Array of data and configuration info
    * @return {array} Array of data and config options
    */
@@ -527,10 +527,10 @@ const Utils = class {
 
   /**
    * A single function to encapsulate the different merge approaches of the record mutations.
-   * See {@link module:jsonapi-vuex.mutations} to see the mutations that use this function.
+   * See {@link module:jsonapi-pinia.mutations} to see the mutations that use this function.
    *
-   * @memberof module:jsonapi-vuex._internal
-   * @param {object} state - Vuex state object
+   * @memberof module:jsonapi-pinia._internal
+   * @param {object} state - Pinia state object
    * @param {object} records - Restructured records to be updated
    * @param {boolean} merging - Whether or not to merge or overwrite records
    */
@@ -572,11 +572,11 @@ const Utils = class {
 /**
  * A class for tracking the status of actions.
  *
- * **Note** - an instance of this class is exported as `status` from `jsonapi-vuex`,
+ * **Note** - an instance of this class is exported as `status` from `jsonapi-pinia`,
  * so it does not need to be used directly.
  *
  * @namespace status
- * @memberof module:jsonapi-vuex
+ * @memberof module:jsonapi-pinia
  * @param {object} maxId=-1 - Limit ID 'history' to N items (default is unlimited).
  */
 const ActionStatus = class {
@@ -603,7 +603,7 @@ const ActionStatus = class {
    * - Calls the provided function
    * - Attaches then/catch blocks to the promise which will set status to SUCCESS/ERROR
    *
-   * @memberof module:jsonapi-vuex.status
+   * @memberof module:jsonapi-pinia.status
    * @params {function} func - A function to be executed which returns a promised
    * @returns {integer} The status ID for this function.
    */

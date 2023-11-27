@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { jsonapiStore } from '../../../src/jsonapi-vuex'
+import { jsonapiStore } from '../../../src/jsonapi-pinia'
 
 const api = axios.create({
   // connect to local jsonapi-mock server

@@ -1,18 +1,18 @@
 /**
- * Vuex mutations, used via `this.$store.commit()`
+ * Pinia mutations, used via `this.$store.commit()`
  *
  * @namespace mutations
- * @memberof module:jsonapi-vuex.jsonapiModule
+ * @memberof module:jsonapi-pinia.createJsonapiStore
  */
 
-import { utils } from './jsonapi-vuex'
+import { utils } from './jsonapi-pinia'
 
 export default () => {
   return {
     /**
      * Delete a record from the store.
-     * @memberof module:jsonapi-vuex.jsonapiModule.mutations
-     * @param {object} state - The Vuex state object
+     * @memberof module:jsonapi-pinia.createJsonapiStore.mutations
+     * @param {object} state - The Pinia state object
      * @param {(string|object)} record - The record to be deleted
      */
     deleteRecord: (state, record) => {
@@ -32,8 +32,8 @@ export default () => {
     },
     /**
      * Add record(s) to the store, according to `mergeRecords` config option
-     * @memberof module:jsonapi-vuex.jsonapiModule.mutations
-     * @param {object} state - The Vuex state object
+     * @memberof module:jsonapi-pinia.createJsonapiStore.mutations
+     * @param {object} state - The Pinia state object
      * @param {object} records - The record(s) to be added
      */
     addRecords: (state, records) => {
@@ -41,8 +41,8 @@ export default () => {
     },
     /**
      * Replace (or add) record(s) to the store
-     * @memberof module:jsonapi-vuex.jsonapiModule.mutations
-     * @param {object} state - The Vuex state object
+     * @memberof module:jsonapi-pinia.createJsonapiStore.mutations
+     * @param {object} state - The Pinia state object
      * @param {object} records - The record(s) to be replaced
      */
     replaceRecords: (state, records) => {
@@ -50,8 +50,8 @@ export default () => {
     },
     /**
      * Merge (or add) records to the store
-     * @memberof module:jsonapi-vuex.jsonapiModule.mutations
-     * @param {object} state - The Vuex state object
+     * @memberof module:jsonapi-pinia.createJsonapiStore.mutations
+     * @param {object} state - The Pinia state object
      * @param {object} records - The record(s) to be merged
      */
     mergeRecords: (state, records) => {
@@ -59,8 +59,8 @@ export default () => {
     },
     /**
      * Delete all records from the store (of a given type) other than those included in a given record
-     * @memberof module:jsonapi-vuex.jsonapiModule.mutations
-     * @param {object} state - The Vuex state object
+     * @memberof module:jsonapi-pinia.createJsonapiStore.mutations
+     * @param {object} state - The Pinia state object
      * @param {object} records - A record with type set.
      */
     clearRecords: (state, records) => {

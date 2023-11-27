@@ -1,9 +1,9 @@
 /**
  * The default configuration is provided here. This is overridden by passing
- * a 'conf' object to {@link module:jsonapi-vuex.jsonapiModule}
+ * a 'conf' object to {@link module:jsonapi-pinia.createJsonapiStore}
  *
  * @namespace Configuration
- * @property {string} jvtag='_jv' - key to store jsonapi-vuex-related data in when destructuring (default: '_jv')
+ * @property {string} jvtag='_jv' - key to store jsonapi-pinia-related data in when destructuring (default: '_jv')
  * @property {boolean} followRelationshipsData=true - Follow relationships 'data' entries (from store)
  * @property {boolean} preserveJSON=false - Preserve API response json in return data
  * @property {boolean} mergeRecords=false - Merge or overwrite store records
