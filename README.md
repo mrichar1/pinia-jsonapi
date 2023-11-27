@@ -4,7 +4,7 @@
 
 A module to access [JSONAPI](https://jsonapi.org) data from an API, using a [Pinia](https://pinia.vuejs.org/) store, restructured to make life easier.
 
-**NOTE:** This library is a replacement for [jsonapi-vuex](https://github.com/mrichar1/jsonapi-vuex/) offering near-identical functionality. For those porting projects, please see
+**NOTE:** This library is a replacement for [jsonapi-vuex](https://github.com/mrichar1/jsonapi-vuex/) offering near-identical functionality. For those porting projects, please see `PORTING.md` for a quick-start list of changes.
 
 ## Documentation
 
@@ -147,7 +147,6 @@ The attributes of the related object can then be accessed as e.g.: `record.doohi
 Having created a Vue project, simply add the module to your `store.js`, passing it an [axios](https://github.com/axios/axios)-like instance:
 
 ```js
-import Pinia from 'pinia'
 import axios from 'axios'
 import { jsonapiStore } from 'jsonapi-pinia'
 
@@ -166,9 +165,15 @@ export { myStore }
 The store is then used in components as follows:
 
 ```js
-import { testAppStore } from '../store'
+import { myStore } from '../store'
 
-const store = testAppStore()
+const store = myStore()
+```
+
+**NOTE:** The store is created with the `name/id` `jv` by default - if you wish to instantiate multiple stores, you can pass a name param to `createJsonapiStore` as follows:
+
+```js
+const myStore = jsonapiStore(api, config, 'store-name')
 ```
 
 ## Usage
