@@ -331,7 +331,7 @@ const actions = (api, conf, utils) => {
       const apiConf = { method: 'delete', url: path }
       merge(apiConf, config)
       return api(apiConf).then((results) => {
-        let includes = getIncludedRecords(results)
+        let includes = utils.getIncludedRecords(results)
         this.mergeRecords(includes)
         this.deleteRecord(data)
         if (results.data) {

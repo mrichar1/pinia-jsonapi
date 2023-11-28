@@ -127,8 +127,8 @@ const Utils = class {
    * If `followRelationshipData` is set, call `followRelationships` for either an item or a collection
    * See {@link module:jsonapi-pinia~Configuration|Configuration}
    * @memberof module:jsonapi-pinia._internal
-   * @param {object} state - Pinia state object
-   * @param {object} getters - Pinia getters object
+   * @param {object} state - Vuex state object
+   * @param {object} getters - Vuex getters object
    * @param {object} records - Record(s) to follow relationships for.
    * @param {array} seen - internal recursion state-tracking
    * @return {object} records with relationships followed
@@ -163,7 +163,7 @@ const Utils = class {
    * It also strips out any of links, relationships and meta from `_jv` - See {@link module:jsonapi-pinia~Configuration|Configuration}
    * @memberof module:jsonapi-pinia.utils
    * @param {object} patch - A restructured object to be cleaned
-   * @param {object} state={} - Pinia state object (for patch comparison)
+   * @param {object} state={} - Vuex state object (for patch comparison)
    * @param {array} jvProps='[]' - _jv Properties to be kept
    * @return {object} A cleaned copy of the patch object
    */
@@ -220,8 +220,8 @@ const Utils = class {
    * spot the potential for loops (which we are guarding against) and throw an error
    *
    * @memberof module:jsonapi-pinia._internal
-   * @param {object} state - Pinia state object
-   * @param {object} getters - Pinia getters object
+   * @param {object} state - Vuex state object
+   * @param {object} getters - Vuex getters object
    * @param {object} record - Record to get relationships for.
    * @param {array} seen - internal recursion state-tracking
    * @return {object} records with relationships followed and helper functions added (see {@link module:jsonapi-pinia.utils.addJvHelpers})
@@ -239,12 +239,12 @@ const Utils = class {
 
   /**
    * Make a copy of a restructured object, adding (js) getters for its relationships
-   * That call the getData getter to fetch that record from the store
+   * That call the (vuex) get getter to fetch that record from the store
    *
    * Already seen objects are tracked using the 'seen' param to avoid loops.
    *
    * @memberof module:jsonapi-pinia._internal
-   * @param {object} getters - Pinia getters object
+   * @param {object} getters - Vuex getters object
    * @param {object} parent - The object whose relationships should be fetched
    * @param {array} seen - Internal recursion state tracking
    * @returns {object} A copy of the object with getter relationships added
@@ -530,7 +530,7 @@ const Utils = class {
    * See {@link module:jsonapi-pinia.mutations} to see the mutations that use this function.
    *
    * @memberof module:jsonapi-pinia._internal
-   * @param {object} state - Pinia state object
+   * @param {object} state - Vuex state object
    * @param {object} records - Restructured records to be updated
    * @param {boolean} merging - Whether or not to merge or overwrite records
    */

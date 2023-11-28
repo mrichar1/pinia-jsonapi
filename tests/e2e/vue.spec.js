@@ -12,7 +12,7 @@ test('Has main div', async () => {
 })
 
 test('Has h1 title', async () => {
-  expect(await page.locator('div#main-div > h1')).toHaveText('JSONAPI Vuex Test App')
+  expect(await page.locator('div#main-div > h1')).toHaveText('JSONAPI Pinia Test App')
 })
 
 test('Has raw data div', async () => {

@@ -1,6 +1,6 @@
 <template>
   <div id="main-div">
-    <h1>JSONAPI Vuex Test App</h1>
+    <h1>JSONAPI Pinia Test App</h1>
     <div id="raw_data" style="border: 1px solid">
       <h2>Raw Data</h2>
       <h3>Action Status</h3>
@@ -76,10 +76,9 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { testAppStore } from '../store'
-import { status, utils } from '../../../../src/jsonapi-vuex'
+import { jsonapiStore, status, utils } from '../store'
 
-const store = testAppStore()
+const store = jsonapiStore()
 
 let searchResult = ref({})
 let delWidgetId = ref()

@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <JsonapiVuex />
+    <JsonapiPinia />
   </div>
 </template>
 
 <script setup>
-import JsonapiVuex from './components/JsonapiVuex.vue'
+import JsonapiPinia from './components/JsonapiPinia.vue'
 </script>
 
 <style></style>
