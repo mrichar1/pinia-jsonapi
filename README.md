@@ -8,7 +8,7 @@ A module to access [JSONAPI](https://jsonapi.org) data from an API, using a [Pin
 
 ## Documentation
 
-Documentation, including JSDoc-generated API reference, is available at: [JSONAPI-Pinia Documentation](https://mrichar1.github.io/pinia-jsonapi/)
+Documentation, including JSDoc-generated API reference, is available at: [Pinia-Jsonapi Documentation](https://mrichar1.github.io/pinia-jsonapi/)
 
 ## Contents
 
