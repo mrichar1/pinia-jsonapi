@@ -507,7 +507,7 @@ const Utils = class {
    * @param {object} results - JSONAPI record
    */
   getIncludedRecords(results) {
-      return get(results, ['data', 'included'], []).map((item) => this.jsonapiToNormItem(item, 'isIncluded'))
+    return get(results, ['data', 'included'], []).map((item) => this.jsonapiToNormItem(item, 'isIncluded'))
   }
 
   /**

@@ -14,7 +14,6 @@ describe('update', function () {
     setActivePinia(createPinia())
     let { jsonapiStore } = defaultJsonapiStore(api)
     store = jsonapiStore()
-
   })
 
   test('should be an alias for patch', function () {

@@ -22,7 +22,6 @@ describe('delete', function () {
     setActivePinia(createPinia())
     let { jsonapiStore } = defaultJsonapiStore(api)
     store = jsonapiStore()
-
   })
 
   test('should make an api call to DELETE item(s)', async function () {

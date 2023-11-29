@@ -1,14 +1,14 @@
 import { beforeEach, describe, expect, test } from 'vitest'
 import sinonChai from 'sinon-chai'
 import chai from 'chai'
-import sinon  from 'sinon'
+import sinon from 'sinon'
 chai.use(sinonChai)
 
 import { setActivePinia, createPinia } from 'pinia'
 import { makeApi } from '../server'
 let api, mockApi
 
-import { createJsonapiStore } from '../../../src/jsonapi-vuex'
+import { createJsonapiStore } from '../../../src/jsonapi-pinia'
 import defaultJsonapiStore from '../utils/defaultJsonapiStore'
 import {
   jsonFormat as createJsonWidget1,
@@ -20,7 +20,7 @@ import {
 } from '../fixtures/widget1'
 
 describe('patch', function () {
-  let jsonWidget1, jsonWidget1Patch, normWidget1, normWidget1Patch, normWidget1Update, store, config, status, utils
+  let jsonWidget1, jsonWidget1Patch, normWidget1, normWidget1Patch, normWidget1Update, store, utils
 
   beforeEach(function () {
     ;[api, mockApi] = makeApi()
@@ -33,8 +33,6 @@ describe('patch', function () {
     setActivePinia(createPinia())
     let jStore = defaultJsonapiStore(api)
     store = jStore.jsonapiStore()
-    config = jStore.config
-    status = jStore.stats
     utils = jStore.utils
   })
 
@@ -92,8 +90,8 @@ describe('patch', function () {
     expect(mergeRecordsMock).to.have.been.calledWith(normWidget1Patch)
   })
 
-// FIXME: It is currently not possible to mock/stub a getter so this test is impossible
-// See e.g.: https://github.com/vuejs/pinia/issues/945
+  // FIXME: It is currently not possible to mock/stub a getter so this test is impossible
+  // See e.g.: https://github.com/vuejs/pinia/issues/945
   test.skip("should return data via the 'get' getter", async function () {
     mockApi.onAny().reply(204)
 
@@ -126,7 +124,7 @@ describe('patch', function () {
   test('should not include rels/links/meta in requests (auto cleanPatch)', async function () {
     mockApi.onAny().reply(204)
     const widget = createNormWidget1WithRels()
-    let { jsonapiStore } = createJsonapiStore(api, {followRelationshipsData: true, cleanPatch: true }, 'tmp')
+    let { jsonapiStore } = createJsonapiStore(api, { followRelationshipsData: true, cleanPatch: true }, 'tmp')
     store = jsonapiStore()
 
     await store.patch(widget)
@@ -156,7 +154,7 @@ describe('patch', function () {
   test('should not include rels/links/meta in requests (manual cleanPatch)', async function () {
     mockApi.onAny().reply(204)
     const widget = createNormWidget1WithRels()
-    let  { jsonapiStore} = createJsonapiStore(api,  {followRelationshipsData: true}, 'tmp')
+    let { jsonapiStore } = createJsonapiStore(api, { followRelationshipsData: true }, 'tmp')
     store = jsonapiStore()
 
     await store.patch(utils.cleanPatch(widget))
@@ -169,7 +167,7 @@ describe('patch', function () {
   test('should include rels/links/meta in requests', async function () {
     mockApi.onAny().reply(204)
     const widget = createNormWidget1WithRels()
-    let { jsonapiStore } = createJsonapiStore(api,  {followRelationshipsData: true}, 'tmp')
+    let { jsonapiStore } = createJsonapiStore(api, { followRelationshipsData: true }, 'tmp')
     store = jsonapiStore()
     const clean = utils.cleanPatch(widget, {}, ['links', 'meta', 'relationships']) //prettier-ignore
     await store.patch(clean)

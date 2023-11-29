@@ -17,7 +17,6 @@ describe('postRelated', function () {
     setActivePinia(createPinia())
     let { jsonapiStore } = defaultJsonapiStore(api)
     store = jsonapiStore()
-
   })
 
   test('Should throw an error if passed an object with no type or id', async function () {

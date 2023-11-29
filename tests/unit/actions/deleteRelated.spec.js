@@ -7,7 +7,7 @@ import defaultJsonapiStore from '../utils/defaultJsonapiStore'
 import { jsonFormat as createJsonWidget1, normFormat as createNormWidget1 } from '../fixtures/widget1'
 
 describe('deleteRelated', function () {
-  let normWidget1, jsonWidget1, jsonapiStore, store
+  let normWidget1, jsonWidget1, store
 
   beforeEach(function () {
     ;[api, mockApi] = makeApi()

@@ -16,7 +16,7 @@ import { Utils, ActionStatus } from './lib'
  * @param {string} [name='jv'] - the pinia store id
  * @return {object} A Pinia store object
  */
-const createJsonapiStore = ((api, conf = {}, name = 'jv') => {
+const createJsonapiStore = (api, conf = {}, name = 'jv') => {
   let config = Object.assign({}, jvConfig, conf)
   // Instantiate helper classes with config prior to re-exporting
   let utils = new Utils(config)
@@ -25,15 +25,17 @@ const createJsonapiStore = ((api, conf = {}, name = 'jv') => {
   return {
     jsonapiStore: defineStore({
       id: name,
-      state: () => { return { [config['jvtag']]: {} } },
+      state: () => {
+        return { [config['jvtag']]: {} }
+      },
       actions: actions(api, config, utils),
       getters: getters(config, utils),
     }),
     config: config,
     status: status,
-    utils: utils
+    utils: utils,
   }
-})
+}
 
 // Export instance of Utils, and merged configs
 export { createJsonapiStore }

@@ -8,16 +8,12 @@ import { setActivePinia, createPinia } from 'pinia'
 import { makeApi } from '../server'
 let api, mockApi
 
-import { createJsonapiStore } from '../../../src/jsonapi-vuex'
+import { createJsonapiStore } from '../../../src/jsonapi-pinia'
 import defaultJsonapiStore from '../utils/defaultJsonapiStore'
 import { jsonFormat as createJsonWidget1, normFormat as createNormWidget1 } from '../fixtures/widget1'
 import { jsonFormat as createJsonWidget2, normFormat as createNormWidget2 } from '../fixtures/widget2'
 import { jsonFormat as createJsonMachine1, normFormat as createNormMachine1 } from '../fixtures/machine1'
-import {
-  jsonFormat as createJsonRecord,
-  normFormatWithRels as createNormRecordRels,
-  storeFormat as createStoreRecord,
-} from '../fixtures/record'
+import { jsonFormat as createJsonRecord, normFormatWithRels as createNormRecordRels } from '../fixtures/record'
 import { createResponseMeta } from '../fixtures/serverResponse'
 
 describe('get', function () {
@@ -29,13 +25,10 @@ describe('get', function () {
     normWidget1Rels,
     normWidget2,
     normRecordRels,
-    storeRecord,
     jsonRecord,
     meta,
     store,
-    config,
-    status,
-    utils
+    config
 
   beforeEach(function () {
     // Mock up a fake axios-like api instance
@@ -48,15 +41,12 @@ describe('get', function () {
     normWidget2 = createNormWidget2()
     normRecordRels = createNormRecordRels()
     normWidget1Rels = normRecordRels[normWidget1['_jv']['id']]
-    storeRecord = createStoreRecord()
     jsonRecord = createJsonRecord()
     meta = createResponseMeta()
     setActivePinia(createPinia())
     let jStore = defaultJsonapiStore(api)
     store = jStore.jsonapiStore()
     config = jStore.config
-    status = jStore.stats
-    utils = jStore.utils
   })
 
   test('should make an api call to GET item(s)', async function () {
@@ -140,9 +130,13 @@ describe('get', function () {
   })
 
   test('should return normalized data with expanded rels (single item)', async function () {
-    const { jsonapiStore } = createJsonapiStore(api, {
-      followRelationshipsData: true,
-    }, 'tmp')
+    const { jsonapiStore } = createJsonapiStore(
+      api,
+      {
+        followRelationshipsData: true,
+      },
+      'tmp'
+    )
     store = jsonapiStore()
     // Make state contain all records for rels to work
     mockApi.onAny().reply(200, { data: jsonWidget1 })
@@ -153,9 +147,13 @@ describe('get', function () {
   })
 
   test('should return normalized data with expanded rels (array)', async function () {
-    const { jsonapiStore } = createJsonapiStore(api, {
-      followRelationshipsData: true,
-    }, 'tmp')
+    const { jsonapiStore } = createJsonapiStore(
+      api,
+      {
+        followRelationshipsData: true,
+      },
+      'tmp'
+    )
     store = jsonapiStore()
     // Make state contain all records for rels to work
     mockApi.onAny().reply(200, jsonRecord)
@@ -169,9 +167,13 @@ describe('get', function () {
   })
 
   test("should handle an empty rels 'data' object", async function () {
-    const { jsonapiStore } = createJsonapiStore(api, {
-      followRelationshipsData: true,
-    }, 'tmp')
+    const { jsonapiStore } = createJsonapiStore(
+      api,
+      {
+        followRelationshipsData: true,
+      },
+      'tmp'
+    )
     store = jsonapiStore()
     // Delete contents of data and remove links
     jsonWidget1['relationships']['widgets']['data'] = {}

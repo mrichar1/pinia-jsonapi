@@ -8,12 +8,12 @@ import { setActivePinia, createPinia } from 'pinia'
 import { makeApi } from '../server'
 let api, mockApi
 
-import { createJsonapiStore } from '../../../src/jsonapi-vuex'
+import { createJsonapiStore } from '../../../src/jsonapi-pinia'
 import defaultJsonapiStore from '../utils/defaultJsonapiStore'
 import { jsonFormat as createJsonWidget1, normFormat as createNormWidget1 } from '../fixtures/widget1'
 
 describe('post', function () {
-  let jsonWidget1, normWidget1, store, config, status, utils
+  let jsonWidget1, normWidget1, store
 
   beforeEach(function () {
     ;[api, mockApi] = makeApi()
@@ -23,9 +23,6 @@ describe('post', function () {
     setActivePinia(createPinia())
     let jStore = defaultJsonapiStore(api)
     store = jStore.jsonapiStore()
-    config = jStore.config
-    status = jStore.stats
-    utils = jStore.utils
   })
 
   test('should make an api call to POST item(s)', async function () {
@@ -71,8 +68,8 @@ describe('post', function () {
     expect(addRecordsMock).to.have.been.calledWith(normWidget1)
   })
 
-// FIXME: It is currently not possible to mock/stub a getter so this test is impossible
-// See e.g.: https://github.com/vuejs/pinia/issues/945
+  // FIXME: It is currently not possible to mock/stub a getter so this test is impossible
+  // See e.g.: https://github.com/vuejs/pinia/issues/945
   test.skip("should return data via the 'get' getter", async function () {
     mockApi.onAny().reply(201, { data: jsonWidget1 })
 

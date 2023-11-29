@@ -97,7 +97,7 @@ const actions = (api, conf, utils) => {
             record = { _jv: { type: type } }
           }
           if (record) {
-          this.clearRecords(record)
+            this.clearRecords(record)
           }
         } else {
           this.addRecords(resData)

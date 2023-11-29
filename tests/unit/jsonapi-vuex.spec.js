@@ -108,7 +108,7 @@ beforeEach(function () {
 
 afterEach(function () {})
 
-describe('jsonapi-vuex tests', function () {
+describe('jsonapi-pina tests', function () {
   test('should export jsonapiStore', function () {
     expect(defaultJsonapiStore).to.exist
   })
@@ -427,7 +427,7 @@ describe('jsonapi-vuex tests', function () {
         expect(utils.normToStore(normWidget1Rels)).to.have.all.keys(storeWidget1)
       })
       test('should convert normalized records to store, removing rels from root', function () {
-        let { utils }  = defaultJsonapiStore(api, { followRelationshipsData: true }, 'tmp')
+        let { utils } = defaultJsonapiStore(api, { followRelationshipsData: true }, 'tmp')
         for (let item of Object.values(normRecordRels)) {
           item = utils.addJvHelpers(item)
         }
