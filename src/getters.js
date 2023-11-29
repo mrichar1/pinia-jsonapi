@@ -3,8 +3,8 @@
  * `this.$store.getters['jv/get'](<args>)`
  *
  * @namespace getters
- * @memberof module:jsonapi-pinia.createJsonapiStore
- * @param {object} conf - a jsonapi-pinia config object
+ * @memberof module:pinia-jsonapi.createJsonapiStore
+ * @param {object} conf - a pinia-jsonapi config object
  */
 
 import get from 'lodash/get'
@@ -17,7 +17,7 @@ export default (conf, utils) => {
     /**
      * Get record(s) from the store
      *
-     * @memberof module:jsonapi-pinia.createJsonapiStore.getters
+     * @memberof module:pinia-jsonapi.createJsonapiStore.getters
      * @param {(string|object)} data
      * @param {string}  - A URL path to an item - e.g. `endpoint/1`
      * @param {object}  - A restructured object  - e.g. `{ _jv: { type: "endpoint", id: "1" } }`
@@ -70,7 +70,7 @@ export default (conf, utils) => {
     /**
      * Get the related record(s) of a record from the store
      *
-     * @memberof module:jsonapi-pinia.createJsonapiStore.getters
+     * @memberof module:pinia-jsonapi.createJsonapiStore.getters
      * @param {(string|object)} data
      * @param {string}  - A URL path to an item - e.g. `endpoint/1`
      * @param {object}  - A restructured object  - e.g. `{ _jv: { type: "endpoint", id: "1" } }`

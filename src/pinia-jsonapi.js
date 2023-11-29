@@ -1,5 +1,5 @@
 /**
- * @module jsonapi-pinia
+ * @module pinia-jsonapi
  */
 import { defineStore } from 'pinia'
 import actions from './actions'
@@ -8,11 +8,11 @@ import getters from './getters'
 import { Utils, ActionStatus } from './lib'
 
 /**
- * jsonapi-pinia pinia store
+ * pinia-jsonapi pinia store
  * @namespace
- * @memberof module:jsonapi-pinia
+ * @memberof module:pinia-jsonapi
  * @param {axios} api - an axios instance
- * @param {object} [conf={}] - jsonapi-pinia configuation
+ * @param {object} [conf={}] - pinia-jsonapi configuation
  * @param {string} [name='jv'] - the pinia store id
  * @return {object} A Pinia store object
  */

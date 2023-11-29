@@ -8,7 +8,7 @@ import { setActivePinia, createPinia } from 'pinia'
 import { makeApi } from '../server'
 let api, mockApi
 
-import { createJsonapiStore } from '../../../src/jsonapi-pinia'
+import { createJsonapiStore } from '../../../src/pinia-jsonapi'
 import defaultJsonapiStore from '../utils/defaultJsonapiStore'
 import { jsonFormat as createJsonWidget1, normFormat as createNormWidget1 } from '../fixtures/widget1'
 

@@ -1,9 +1,9 @@
 /**
  * The default configuration is provided here. This is overridden by passing
- * a 'conf' object to {@link module:jsonapi-pinia.createJsonapiStore}
+ * a 'conf' object to {@link module:pinia-jsonapi.createJsonapiStore}
  *
  * @namespace Configuration
- * @property {string} jvtag='_jv' - key to store jsonapi-pinia-related data in when destructuring (default: '_jv')
+ * @property {string} jvtag='_jv' - key to store pinia-jsonapi-related data in when destructuring (default: '_jv')
  * @property {boolean} followRelationshipsData=true - Follow relationships 'data' entries (from store)
  * @property {boolean} preserveJSON=false - Preserve API response json in return data
  * @property {boolean} mergeRecords=false - Merge or overwrite store records

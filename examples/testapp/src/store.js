@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { createJsonapiStore } from '../../../src/jsonapi-pinia'
+import { createJsonapiStore } from '../../../src/pinia-jsonapi'
 
 const api = axios.create({
   // connect to local jsonapi-mock server

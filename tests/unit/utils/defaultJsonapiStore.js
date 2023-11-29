@@ -1,4 +1,4 @@
-import { createJsonapiStore } from '../../../src/jsonapi-pinia.js'
+import { createJsonapiStore } from '../../../src/pinia-jsonapi.js'
 import config from '../../../src/config.js'
 
 // Turn off the following to simplify test data in most cases

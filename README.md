@@ -1,14 +1,14 @@
-# jsonapi-pinia
+# pinia-jsonapi
 
 [![Build Status](https://github.com/mrichar1/jsonapi-vuex/actions/workflows/main.yml/badge.svg)](https://github.com/mrichar1/jsonapi-vuex/actions) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/jsonapi-vuex.svg)](https://bundlephobia.com/result?p=jsonapi-vuex) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/mrichar1/jsonapi-vuex.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/mrichar1/jsonapi-vuex/context:javascript)
 
 A module to access [JSONAPI](https://jsonapi.org) data from an API, using a [Pinia](https://pinia.vuejs.org/) store, restructured to make life easier.
 
-**NOTE:** This library is a replacement for [jsonapi-vuex](https://github.com/mrichar1/jsonapi-vuex/) offering near-identical functionality. For those porting projects, please see `PORTING.md` for a quick-start list of changes.
+**NOTE:** This library is a replacement for [jsonapi-vuex](https://github.com/mrichar1/jsonapi-vuex/) offering near-identical functionality. For those porting projects, please see `PORTING.md` for a quick-start list of changes. (The name 'reversal' is due to a package name clash in npm).
 
 ## Documentation
 
-Documentation, including JSDoc-generated API reference, is available at: [JSONAPI-Pinia Documentation](https://mrichar1.github.io/jsonapi-pinia/)
+Documentation, including JSDoc-generated API reference, is available at: [JSONAPI-Pinia Documentation](https://mrichar1.github.io/pinia-jsonapi/)
 
 ## Contents
 
@@ -148,7 +148,7 @@ Having created a Vue project, simply add the module to your `store.js`, passing 
 
 ```js
 import axios from 'axios'
-import { jsonapiStore } from 'jsonapi-pinia'
+import { jsonapiStore } from 'pinia-jsonapi'
 
 const api = axios.create({
   baseURL: 'https://api.example.com/1/api/',
@@ -214,7 +214,7 @@ The 2 function types available in Pinia are used as follows:
 
 ### Actions
 
-[Actions API Reference](https://mrichar1.github.io/jsonapi-pinia/module-jsonapi-pinia.jsonapiStore.actions.html)
+[Actions API Reference](https://mrichar1.github.io/pinia-jsonapi/module-pinia-jsonapi.jsonapiStore.actions.html)
 
 The usual way to use this module is to use `actions` wherever possible. All actions are asynchronous, and both query the API and update the store, then return data in a normalized form. Actions can be handled using the `then/catch` methods of promises, or using `async/await`.
 
@@ -498,7 +498,7 @@ store.clearRecords({ _jv: { type: 'widget' } })
 
 Most errors are likely to be those raised by the API in response to the request. These will take the form of an [Axios Error Handling](https://github.com/axios/axios#handling-errors) object, containing an [JSONAPI Error object](https://jsonapi.org/format/#error-objects).
 
-To handle errors with `jsonapi-pinia` using `then/catch` methods on the promise:
+To handle errors with `pinia-jsonapi` using `then/catch` methods on the promise:
 
 ```js
 store.get('/widget/99')
@@ -534,14 +534,14 @@ try {
 
 #### Action Status
 
-The status of actions can be monitored using the `status` wrapper function, imported from `jsonapi-pinia`.
+The status of actions can be monitored using the `status` wrapper function, imported from `pinia-jsonapi`.
 
 `status` takes as an argument an `action` dispatch function (or any function which returns a promise). It then calls and tracks the state of that function.
 
 It returns the promise created by the function, with an ID added (`_statusID`). This ID can be used to get the status of the function via the `status.status` object:
 
 ```js
-import { status } from 'jsonapi-pinia'
+import { status } from 'pinia-jsonapi'
 
 // Capture the returned promise
 let myAction = status.run(() => store.get('widget/1'))
@@ -598,7 +598,7 @@ _Note_ - By default action IDs will always increment. If you have concerns about
 
 ### Getters
 
-[Getters API Reference](https://mrichar1.github.io/jsonapi-pinia/module-jsonapi-pinia.createJsonapiStore.getters.html)
+[Getters API Reference](https://mrichar1.github.io/pinia-jsonapi/module-pinia-jsonapi.createJsonapiStore.getters.html)
 
 There are 2 getters available: `getData` and `getRelatedData`.
 
@@ -694,12 +694,12 @@ These are particularly useful in `Vue` templates. For example to iterate over an
 
 ## Utility Functions
 
-[Utility Functions API Reference](https://mrichar1.github.io/jsonapi-pinia/module-jsonapi-pinia.utils.html)
+[Utility Functions API Reference](https://mrichar1.github.io/pinia-jsonapi/module-pinia-jsonapi.utils.html)
 
 Some functions are potentially useful for data manipulation etc outside the normal code flow. These functions are exported as `utils`, i.e:
 
 ```js
-import { utils } from `jsonapi-pinia`
+import { utils } from `pinia-jsonapi`
 ```
 
 The current utility functions are:
@@ -748,7 +748,7 @@ Convert a restructured object to its `store` form.
 
 ## Configuration
 
-[Configuration API Reference](https://mrichar1.github.io/jsonapi-pinia/module-jsonapi-pinia-Configuration.html)
+[Configuration API Reference](https://mrichar1.github.io/pinia-jsonapi/module-pinia-jsonapi-Configuration.html)
 
 A config object can be passed to `jsonapiStore` when instantiating. It will override the default options:
 
@@ -775,9 +775,9 @@ For many of these options, more information is provided in the [Usage](#usage) s
 
 ## Endpoints
 
-By default `jsonapi-pinia` assumes that object type and API endpoint are the same. For example, `type: person` would have endpoint URLs of `/person` and `/person/1` for collections and single items.
+By default `pinia-jsonapi` assumes that object type and API endpoint are the same. For example, `type: person` would have endpoint URLs of `/person` and `/person/1` for collections and single items.
 
-When performing request on an already known single item (like an update), `jsonapi-pinia` will use the `links.self` attribute of an item to determine the API endpoint, if it is present.
+When performing request on an already known single item (like an update), `pinia-jsonapi` will use the `links.self` attribute of an item to determine the API endpoint, if it is present.
 
 However many APIs vary how endpoints are named - for example plurals (e.g. `type:person`, `/person/1` and `/people`), or cases where the endpoint doesn't match the type (e.g. `type: person` `/author` and `/author/1`) or even a combination (e.g. `type: person` `/author/1` and `/authors`)
 

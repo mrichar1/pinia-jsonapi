@@ -1,5 +1,5 @@
 {
-  "name": "jsonapi-pinia",
+  "name": "pinia-jsonapi",
   "version": "6.0.0",
   "description": "Access restructured JSONAPI data from a Pinia Store.",
   "author": "Matthew Richardson <M.Richardson@ed.ac.uk>",
@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "unit": "vitest run --dir tests/unit"
   },
-  "main": "src/jsonapi-pinia.js",
+  "main": "src/pinia-jsonapi.js",
   "files": [
     "src/"
   ],
@@ -50,9 +50,9 @@
     "vue": "^3.3.8"
   },
   "bugs": {
-    "url": "https://github.com/mrichar1/jsonapi-pinia/issues"
+    "url": "https://github.com/mrichar1/pinia-jsonapi/issues"
   },
-  "homepage": "https://github.com/mrichar1/jsonapi-pinia.git",
+  "homepage": "https://github.com/mrichar1/pinia-jsonapi.git",
   "keywords": [
     "vue",
     "vuex",
@@ -71,6 +71,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mrichar1/jsonapi-pinia.git"
+    "url": "https://github.com/mrichar1/pinia-jsonapi.git"
   }
 }

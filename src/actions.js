@@ -5,9 +5,9 @@
  * `args` can be either a string or an object representing the item(s) required,
  * or it can be an array of string/object and an optional axios config object.
  * @namespace actions
- * @memberof module:jsonapi-pinia.createJsonapiStore
+ * @memberof module:pinia-jsonapi.createJsonapiStore
  * @param {axios} api - an axios api instance
- * @param {object} conf - a jsonapi-pinia config object
+ * @param {object} conf - a pinia-jsonapi config object
  */
 
 import get from 'lodash/get'
@@ -22,7 +22,7 @@ const actions = (api, conf, utils) => {
    * This method is wrapped by `(delete|patch|post)Related` actions, and is not available directly as an action.
    *
    * @async
-   * @memberof module:jsonapi-pinia.createJsonapiStore.actions
+   * @memberof module:pinia-jsonapi.createJsonapiStore.actions
    * @param {object} args - A restructured object, specifying relationship(s)  - e.g. `{ _jv: { type: "endpoint", id: "1", relationships: {...} } }`
    * @param {object} args - A restructured object, specifying relationship(s)  - e.g. `{ _jv: { type: "endpoint", id: "1", relationships: {...} } }`
    * @return {object} Restructured representation of the 'parent' item
@@ -73,8 +73,8 @@ const actions = (api, conf, utils) => {
      * Get items from the API
      *
      * @async
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
-     * @param {(string|object|array)} args - See {@link module:jsonapi-pinia.createJsonapiStore.actions} for a summary of args
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
+     * @param {(string|object|array)} args - See {@link module:pinia-jsonapi.createJsonapiStore.actions} for a summary of args
      * @param {string}  - A URL path to an item - e.g. `endpoint/1`
      * @param {object}  - A restructured object  - e.g. `{ _jv: { type: "endpoint", id: "1" } }`
      * @param {array}  - A 2-element array, consisting of a string/object and an optional axios config object
@@ -113,8 +113,8 @@ const actions = (api, conf, utils) => {
      * Get related items from the API
      *
      * @async
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
-     * @param {(string|object|array)} args - See {@link module:jsonapi-pinia.createJsonapiStore.actions} for a summary of args
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
+     * @param {(string|object|array)} args - See {@link module:pinia-jsonapi.createJsonapiStore.actions} for a summary of args
      * @param {string}  - A URL path to an item - e.g. `endpoint/1`
      * @param {object}  - A restructured object  - e.g. `{ _jv: { type: "endpoint", id: "1" } }`
      * @param {array}  - A 2-element array, consisting of a string/object and an optional axios config object
@@ -211,7 +211,7 @@ const actions = (api, conf, utils) => {
      * DELETE an object's relationships via its `relationships URL`
      *
      * @async
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
      * @param {object} args - A restructured object, specifying relationship(s)  - e.g. `{ _jv: { type: "endpoint", id: "1", relationships: {...} } }`
      * @return {object} Restructured representation of the 'parent' item
      */
@@ -222,7 +222,7 @@ const actions = (api, conf, utils) => {
      * PATCH an object's relationships via its `relationships URL`
      *
      * @async
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
      * @param {object} args - A restructured object, specifying relationship(s)  - e.g. `{ _jv: { type: "endpoint", id: "1", relationships: {...} } }`
      * @return {object} Restructured representation of the 'parent' item
      */
@@ -233,7 +233,7 @@ const actions = (api, conf, utils) => {
      * POST to an object's relationships via its `relationships URL`
      *
      * @async
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
      * @param {object} args - A restructured object, specifying relationship(s)  - e.g. `{ _jv: { type: "endpoint", id: "1", relationships: {...} } }`
      * @return {object} Restructured representation of the 'parent' item
      */
@@ -244,8 +244,8 @@ const actions = (api, conf, utils) => {
      * Post an item to the API
      *
      * @async
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
-     * @param {(object|array)} args - See {@link module:jsonapi-pinia.createJsonapiStore.actions} for a summary of args
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
+     * @param {(object|array)} args - See {@link module:pinia-jsonapi.createJsonapiStore.actions} for a summary of args
      * @param {object}  - A restructured object  - e.g. `{ _jv: { type: "endpoint", id: "1" } }`
      * @param {array}  - A 2-element array, consisting of a string/object and an optional axios config object
      * @return {object} Restructured representation of the posted item
@@ -276,8 +276,8 @@ const actions = (api, conf, utils) => {
      * Patch an item in the API
      *
      * @async
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
-     * @param {(object|array)} args - See {@link module:jsonapi-pinia.createJsonapiStore.actions} for a summary of args
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
+     * @param {(object|array)} args - See {@link module:pinia-jsonapi.createJsonapiStore.actions} for a summary of args
      * @param {object}  - A restructured object  - e.g. `{ _jv: { type: "endpoint", id: "1" } }`
      * @param {array}  - A 2-element array, consisting of a string/object and an optional axios config object
      * @return {object} Restructured representation of the patched item
@@ -318,8 +318,8 @@ const actions = (api, conf, utils) => {
      * Delete an item from the API
      *
      * @async
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
-     * @param {(string|object|array)} args - See {@link module:jsonapi-pinia.createJsonapiStore.actions} for a summary of args
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
+     * @param {(string|object|array)} args - See {@link module:pinia-jsonapi.createJsonapiStore.actions} for a summary of args
      * @param {string}  - A URL path to an item - e.g. `endpoint/1`
      * @param {object}  - A restructured object  - e.g. `{ _jv: { type: "endpoint", id: "1" } }`
      * @param {array}  - A 2-element array, consisting of a string/object and an optional axios config object
@@ -344,10 +344,10 @@ const actions = (api, conf, utils) => {
     /**
      * Get items from the API without updating the Pinia store
      *
-     * @see module:jsonapi-pinia.createJsonapiStore.actions.get
+     * @see module:pinia-jsonapi.createJsonapiStore.actions.get
      * @async
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
-     * @param {(string|object|array)} args - See {@link module:jsonapi-pinia.createJsonapiStore.actions} for a summary of args
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
+     * @param {(string|object|array)} args - See {@link module:pinia-jsonapi.createJsonapiStore.actions} for a summary of args
      * @param {string}  - A URL path to an item - e.g. `endpoint/1`
      * @param {object}  - A restructured object  - e.g. `{ _jv: { type: "endpoint", id: "1" } }`
      * @param {array}  - A 2-element array, consisting of a string/object and an optional axios config object
@@ -358,32 +358,32 @@ const actions = (api, conf, utils) => {
       return this.get(args, false)
     },
     /**
-     * Alias for {@link module:jsonapi-pinia.createJsonapiStore.actions.get}
+     * Alias for {@link module:pinia-jsonapi.createJsonapiStore.actions.get}
      * @async
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
      */
     fetch(args) {
       return this.get(args)
     },
     /**
-     * Alias for {@link module:jsonapi-pinia.createJsonapiStore.actions.post}
+     * Alias for {@link module:pinia-jsonapi.createJsonapiStore.actions.post}
      * @async
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
      */
     create(args) {
       return this.post(args)
     },
     /**
-     * Alias for {@link module:jsonapi-pinia.createJsonapiStore.actions.patch}
+     * Alias for {@link module:pinia-jsonapi.createJsonapiStore.actions.patch}
      * @async
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
      */
     update(args) {
       return this.patch(args)
     },
     /**
      * Add record(s) to the store, according to `mergeRecords` config option
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
      * @param {object} records - The record(s) to be added
      */
     addRecords(records) {
@@ -391,7 +391,7 @@ const actions = (api, conf, utils) => {
     },
     /**
      * Delete all records from the store (of a given type) other than those included in a given record
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
      * @param {object} records - A record with type set.
      */
     clearRecords(records) {
@@ -399,7 +399,7 @@ const actions = (api, conf, utils) => {
     },
     /**
      * Delete a record from the store.
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
      * @param {(string|object)} record - The record to be deleted
      */
     deleteRecord(record) {
@@ -419,7 +419,7 @@ const actions = (api, conf, utils) => {
     },
     /**
      * Merge (or add) records to the store
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
      * @param {object} records - The record(s) to be merged
      */
     mergeRecords(records) {
@@ -427,7 +427,7 @@ const actions = (api, conf, utils) => {
     },
     /**
      * Replace (or add) record(s) to the store
-     * @memberof module:jsonapi-pinia.createJsonapiStore.actions
+     * @memberof module:pinia-jsonapi.createJsonapiStore.actions
      * @param {object} records - The record(s) to be replaced
      */
     replaceRecords(records) {

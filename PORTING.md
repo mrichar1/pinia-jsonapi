@@ -1,16 +1,16 @@
-# Porting from jsonapi-vuex to jsonapi-pinia
+# Porting from jsonapi-vuex to pinia-jsonapi
 
-The following is a quick summary of the main changes between jsonapi-vuex and jsonapi-pinia - please see `README.md` for the full documentation.
+The following is a quick summary of the main changes between jsonapi-vuex and pinia-jsonapi - please see `README.md` for the full documentation.
 
 ## Changes
 
 ### Setup
 
-The contents of store.js are simplified to just import and instantiate a `jsonapi-pinia` instance:
+The contents of store.js are simplified to just import and instantiate a `pinia-jsonapi` instance:
 
 ```js
 import axios from 'axios'
-import { jsonapiStore } from 'jsonapi-pinia'
+import { jsonapiStore } from 'pinia-jsonapi'
 
 const api = axios.create({
   baseURL: 'https://api.example.com/1/api/',
@@ -41,7 +41,7 @@ Actions are no longer called with `dispatch` - instead actions are functions cal
 // jsonapi-vuex
 this.$store.dispatch('jv/get', 'widget').then((data) => {})
 
-// jsonapi-pinia
+// pinia-jsonapi
 store.get('widget').then((data) => {})
 ```
 
@@ -60,7 +60,7 @@ Like actions, getters are now called directly from the store:
 this.$store.getters['jv/get']({ _jv: { type: 'Widget' } })
 
 
-// jsonapi-pinia
+// pinia-jsonapi
 store.getData({ _jv: { type: 'Widget' } })
 ```
 

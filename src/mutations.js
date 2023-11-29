@@ -2,16 +2,16 @@
  * Pinia mutations, used via `this.$store.commit()`
  *
  * @namespace mutations
- * @memberof module:jsonapi-pinia.createJsonapiStore
+ * @memberof module:pinia-jsonapi.createJsonapiStore
  */
 
-import { utils } from './jsonapi-pinia'
+import { utils } from './pinia-jsonapi'
 
 export default () => {
   return {
     /**
      * Delete a record from the store.
-     * @memberof module:jsonapi-pinia.createJsonapiStore.mutations
+     * @memberof module:pinia-jsonapi.createJsonapiStore.mutations
      * @param {object} state - The Pinia state object
      * @param {(string|object)} record - The record to be deleted
      */
@@ -32,7 +32,7 @@ export default () => {
     },
     /**
      * Add record(s) to the store, according to `mergeRecords` config option
-     * @memberof module:jsonapi-pinia.createJsonapiStore.mutations
+     * @memberof module:pinia-jsonapi.createJsonapiStore.mutations
      * @param {object} state - The Pinia state object
      * @param {object} records - The record(s) to be added
      */
@@ -41,7 +41,7 @@ export default () => {
     },
     /**
      * Replace (or add) record(s) to the store
-     * @memberof module:jsonapi-pinia.createJsonapiStore.mutations
+     * @memberof module:pinia-jsonapi.createJsonapiStore.mutations
      * @param {object} state - The Pinia state object
      * @param {object} records - The record(s) to be replaced
      */
@@ -50,7 +50,7 @@ export default () => {
     },
     /**
      * Merge (or add) records to the store
-     * @memberof module:jsonapi-pinia.createJsonapiStore.mutations
+     * @memberof module:pinia-jsonapi.createJsonapiStore.mutations
      * @param {object} state - The Pinia state object
      * @param {object} records - The record(s) to be merged
      */
@@ -59,7 +59,7 @@ export default () => {
     },
     /**
      * Delete all records from the store (of a given type) other than those included in a given record
-     * @memberof module:jsonapi-pinia.createJsonapiStore.mutations
+     * @memberof module:pinia-jsonapi.createJsonapiStore.mutations
      * @param {object} state - The Pinia state object
      * @param {object} records - A record with type set.
      */
