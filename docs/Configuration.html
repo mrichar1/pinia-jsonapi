@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Namespace: Configuration</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Namespace: Configuration</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>Configuration</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>The default configuration is provided here. This is overridden by passing
+a 'conf' object to <a href="module-pinia-jsonapi.createJsonapiStore.html"><code>module:pinia-jsonapi.createJsonapiStore</code></a></p></div>
+        
+
+        
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>jvtag</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    '_jv'
+                
+                </td>
+            
+
+            <td class="description last"><p>key to store pinia-jsonapi-related data in when destructuring (default: '_jv')</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>followRelationshipsData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Follow relationships 'data' entries (from store)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>preserveJSON</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>Preserve API response json in return data</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mergeRecords</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>Merge or overwrite store records</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clearOnUpdate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>Delete old records not contained in an update (on a per-type basis).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cleanPatch</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>Always run 'cleanPatch' method when patching</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cleanPatchProps</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    '[]'
+                
+                </td>
+            
+
+            <td class="description last"><p>If cleanPatch is enabled, which _jv props (links, meta, rels) should be kept?</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>recurseRelationships</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>Allow relationships to be recursive?</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxStatusID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    -1
+                
+                </td>
+            
+
+            <td class="description last"><p>The maximum number of status IDs to generate before looping. Default is unlimited.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>relatedIncludes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>When returning the original object from *related 'write' methods, also include related objects. Default is true.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="config.js.html">config.js</a>, <a href="config.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-pinia-jsonapi.html">pinia-jsonapi</a></li></ul><h3>Namespaces</h3><ul><li><a href="Configuration.html">Configuration</a></li><li><a href="module-pinia-jsonapi._internal.html">_internal</a></li><li><a href="module-pinia-jsonapi.createJsonapiStore.html">createJsonapiStore</a></li><li><a href="module-pinia-jsonapi.createJsonapiStore.actions.html">actions</a></li><li><a href="module-pinia-jsonapi.createJsonapiStore.getters.html">getters</a></li><li><a href="module-pinia-jsonapi.createJsonapiStore.mutations.html">mutations</a></li><li><a href="module-pinia-jsonapi.helpers.html">helpers</a></li><li><a href="module-pinia-jsonapi.status.html">status</a></li><li><a href="module-pinia-jsonapi.utils.html">utils</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Nov 29 2023 10:47:14 GMT+0000 (Greenwich Mean Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
