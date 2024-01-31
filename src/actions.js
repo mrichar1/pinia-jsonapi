@@ -80,7 +80,7 @@ const actions = (api, conf, utils) => {
      * @param {array}  - A 2-element array, consisting of a string/object and an optional axios config object
      * @return {object} Restructured representation of the requested item(s)
      */
-    get(args) {
+    get(args, write=true) {
       const [data, config] = utils.unpackArgs(args)
       const path = utils.getURL(data)
       const apiConf = { method: 'get', url: path }
@@ -90,7 +90,7 @@ const actions = (api, conf, utils) => {
       return api(apiConf).then((results) => {
         let resData = utils.jsonapiToNorm(results.data.data)
         let [type, id] = utils.getTypeId(data)
-        if (!id && conf.clearOnUpdate) {
+        if (write && !id && conf.clearOnUpdate) {
           let record = resData
           if (Object.keys(resData).length === 0 && type) {
             // No records - assume type == endpoint
@@ -103,7 +103,9 @@ const actions = (api, conf, utils) => {
           this.addRecords(resData)
         }
         let includes = utils.getIncludedRecords(results)
-        this.mergeRecords(includes)
+        if (write) {
+          this.mergeRecords(includes)
+        }
         resData = utils.checkAndFollowRelationships(this, resData)
         resData = utils.preserveJSON(resData, results.data)
         return resData
