@@ -68,6 +68,24 @@ const actions = (api, conf, utils) => {
     return store.get([`${type}/${id}`, { params: params }])
   }
 
+  /**
+   * Internal method for common api-get handling code for get and getRelated methods.
+   *
+   * @async
+   * @memberof module:pinia-jsonapi.createJsonapiStore.actions
+   * @param {object} data - Data for the api request.
+   * @param {object} config - Axios configuration object.
+   * @return {object} an API promise object.
+   */
+  const apiGet = (data, config) => {
+    const path = utils.getURL(data)
+    const apiConf = { method: 'get', url: path }
+    // https://github.com/axios/axios/issues/362
+    config['data'] = config['data'] || {}
+    merge(apiConf, config)
+    return api(apiConf)
+  }
+
   return {
     /**
      * Get items from the API
@@ -80,30 +98,28 @@ const actions = (api, conf, utils) => {
      * @param {array}  - A 2-element array, consisting of a string/object and an optional axios config object
      * @return {object} Restructured representation of the requested item(s)
      */
-    get(args, write=true) {
+    get(args, search = false) {
       const [data, config] = utils.unpackArgs(args)
-      const path = utils.getURL(data)
-      const apiConf = { method: 'get', url: path }
-      // https://github.com/axios/axios/issues/362
-      config['data'] = config['data'] || {}
-      merge(apiConf, config)
-      return api(apiConf).then((results) => {
+      return apiGet(data, config).then((results) => {
         let resData = utils.jsonapiToNorm(results.data.data)
-        let [type, id] = utils.getTypeId(data)
-        if (write && !id && conf.clearOnUpdate) {
-          let record = resData
-          if (Object.keys(resData).length === 0 && type) {
-            // No records - assume type == endpoint
-            record = { _jv: { type: type } }
+
+        // Don't write data if searching
+        if (!search) {
+          let [type, id] = utils.getTypeId(data)
+
+          let includes = utils.getIncludedRecords(results)
+          if (!id && conf.clearOnUpdate) {
+            let record = resData
+            if (Object.keys(resData).length === 0 && type) {
+              // No records - assume type == endpoint
+              record = { _jv: { type: type } }
+            }
+            if (record) {
+              this.clearRecords(record)
+            }
+          } else {
+            this.addRecords(resData)
           }
-          if (record) {
-            this.clearRecords(record)
-          }
-        } else {
-          this.addRecords(resData)
-        }
-        let includes = utils.getIncludedRecords(results)
-        if (write) {
           this.mergeRecords(includes)
         }
         resData = utils.checkAndFollowRelationships(this, resData)
@@ -183,7 +199,7 @@ const actions = (api, conf, utils) => {
               entry = { [jvtag]: entry }
             }
             relNames.push(relName)
-            relPromises.push(this.get([entry, config]))
+            relPromises.push(apiGet(entry, config))
           }
         } else {
           // Empty to-one rels should have a relName but no data
@@ -193,19 +209,17 @@ const actions = (api, conf, utils) => {
         }
       }
       // 'Merge' all promise resolution/rejection
+      let allData = []
       return Promise.all(relPromises).then((results) => {
-        let related = {}
-        results.forEach((result, i) => {
-          // Get the relName from the same array position as the result item
-          let relName = relNames[i]
-          let normItem = { [relName]: {} }
-          if (utils.hasProperty(result, jvtag)) {
-            normItem[relName][result[jvtag]['type']] = {
-              [result[jvtag]['id']]: result,
-            }
+        // Collect the jsonapi data from each response into an array
+        results.forEach((result) => {
+          if (Object.keys(result).length != 0) {
+            allData.push(result.data.data)
           }
-          merge(related, normItem)
         })
+        // Restructure the data, merge and return
+        let related = utils.jsonapiToNorm(allData)
+        this.mergeRecords(related)
         return related
       })
     },
@@ -356,8 +370,8 @@ const actions = (api, conf, utils) => {
      * @return {object} Restructured representation of the posted item
      */
     search(args) {
-      // Set 'write' to false to prevent store updates
-      return this.get(args, false)
+      // Set 'search' param to true to prevent store updates
+      return this.get(args, true)
     },
     /**
      * Alias for {@link module:pinia-jsonapi.createJsonapiStore.actions.get}

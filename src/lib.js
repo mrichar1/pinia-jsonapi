@@ -537,6 +537,7 @@ const Utils = class {
   updateRecords(store, records, mergeDefault = this.conf.mergeRecords) {
     const storeRecords = this.normToStore(records)
     let merging = {}
+    let storeData = {}
     for (let [type, item] of Object.entries(storeRecords)) {
       let newRecords = item
       if (mergeDefault) {
@@ -559,11 +560,13 @@ const Utils = class {
           )
         }
       }
-      // Maintain reactivity by 'touching' the 'root' state property
+      Object.assign(storeData, { [type]: newRecords })
+    }
+    for (let [type, data] of Object.entries(storeData)) {
       if (type in store.$state) {
-        store.$state[type] = Object.assign({}, store.$state[type], newRecords)
+        Object.assign(store.$state[type], data)
       } else {
-        store.$state[type] = newRecords
+        store.$state[type] = data
       }
     }
   }
