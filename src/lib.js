@@ -368,9 +368,10 @@ const Utils = class {
    * Convert JSONAPI record(s) to restructured data
    * @memberof module:pinia-jsonapi.utils
    * @param {object} data - The `data` object from a JSONAPI record
+   * @param {boolean} recordType=isData - Set a key in _jv for every record which reflects if this came 'direct' from 'data' or via 'included'
    * @return {object} Restructured data
    */
-  jsonapiToNorm(data) {
+  jsonapiToNorm(data, recordType = 'isData') {
     const norm = {}
     if (Array.isArray(data)) {
       data.forEach((item) => {
@@ -378,10 +379,10 @@ const Utils = class {
         if (!this.hasProperty(norm, id)) {
           norm[id] = {}
         }
-        Object.assign(norm[id], this.jsonapiToNormItem(item))
+        Object.assign(norm[id], this.jsonapiToNormItem(item, recordType))
       })
     } else {
-      Object.assign(norm, this.jsonapiToNormItem(data))
+      Object.assign(norm, this.jsonapiToNormItem(data, recordType))
     }
     return norm
   }
@@ -504,10 +505,14 @@ const Utils = class {
    * Restructure all records in 'included' (using {@link module:pinia-jsonapi._internal.jsonapiToNormItem})
    * and add to the store.
    * @memberof module:pinia-jsonapi._internal
-   * @param {object} results - JSONAPI record
+   * @param {object} results - Records in storeFormat.
    */
   getIncludedRecords(results) {
-    return get(results, ['data', 'included'], []).map((item) => this.jsonapiToNormItem(item, 'isIncluded'))
+    let includes = get(results, ['data', 'included'])
+    if (includes) {
+      return this.normToStore(this.jsonapiToNorm(includes, 'isIncluded'))
+    }
+    return {}
   }
 
   /**

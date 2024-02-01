@@ -106,7 +106,6 @@ const actions = (api, conf, utils) => {
         // Don't write data if searching
         if (!search) {
           let [type, id] = utils.getTypeId(data)
-
           let includes = utils.getIncludedRecords(results)
           if (!id && conf.clearOnUpdate) {
             let record = resData
@@ -165,12 +164,14 @@ const actions = (api, conf, utils) => {
 
       // Iterate over all records in rels
       for (let [relName, relItems] of Object.entries(rels)) {
+        // Use per-rel config if set, otherwise default to config
+        let relCfg = get(config, ['_jv', relName], config)
         let relData
         // relationships value might be empty if user-constructed
         // so fetch relationships resource linkage for these
         if (!relItems) {
           try {
-            const resLink = await api.get(`${type}/${id}/relationships/${relName}`, config)
+            const resLink = await api.get(`${type}/${id}/relationships/${relName}`, relCfg)
             relItems = resLink.data
           } catch (error) {
             throw `No such relationship: ${relName}`
@@ -199,7 +200,7 @@ const actions = (api, conf, utils) => {
               entry = { [jvtag]: entry }
             }
             relNames.push(relName)
-            relPromises.push(apiGet(entry, config))
+            relPromises.push(apiGet(entry, relCfg))
           }
         } else {
           // Empty to-one rels should have a relName but no data
@@ -209,18 +210,24 @@ const actions = (api, conf, utils) => {
         }
       }
       // 'Merge' all promise resolution/rejection
-      let allData = []
       return Promise.all(relPromises).then((results) => {
-        // Collect the jsonapi data from each response into an array
-        results.forEach((result) => {
-          if (Object.keys(result).length != 0) {
-            allData.push(result.data.data)
+        let allRels = []
+        // Collect the jsonapi data & includes from each response
+        results.forEach(({ data }) => {
+          let res = get(data, ['data'])
+          let included = get(data, ['included'])
+          if (res) {
+            allRels.push(res)
+          }
+          if (included) {
+            allRels.push(...included)
           }
         })
-        // Restructure the data, merge and return
-        let related = utils.jsonapiToNorm(allData)
-        this.mergeRecords(related)
-        return related
+        // Restructure the data
+        allRels = utils.jsonapiToNorm(allRels)
+        this.mergeRecords(allRels)
+        // Use storeFormat: (type: id: object) as may have multiple types
+        return utils.normToStore(allRels)
       })
     },
     /**

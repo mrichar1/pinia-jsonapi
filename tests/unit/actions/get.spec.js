@@ -11,19 +11,20 @@ let api, mockApi
 import { createJsonapiStore } from '../../../src/pinia-jsonapi'
 import defaultJsonapiStore from '../utils/defaultJsonapiStore'
 import { jsonFormat as createJsonWidget1, normFormat as createNormWidget1 } from '../fixtures/widget1'
-import { jsonFormat as createJsonWidget2, normFormat as createNormWidget2 } from '../fixtures/widget2'
-import { jsonFormat as createJsonMachine1, normFormat as createNormMachine1 } from '../fixtures/machine1'
+import { jsonFormat as createJsonWidget2, storeFormat as createStoreWidget2 } from '../fixtures/widget2'
+import { jsonFormat as createJsonMachine1, storeFormat as createMachineWidget1 } from '../fixtures/machine1'
 import { jsonFormat as createJsonRecord, normFormatWithRels as createNormRecordRels } from '../fixtures/record'
 import { createResponseMeta } from '../fixtures/serverResponse'
+import { merge } from 'lodash'
 
 describe('get', function () {
   let jsonMachine1,
-    normMachine1,
     jsonWidget1,
     jsonWidget2,
     normWidget1,
     normWidget1Rels,
-    normWidget2,
+    storeMachine1,
+    storeWidget2,
     normRecordRels,
     jsonRecord,
     meta,
@@ -34,11 +35,11 @@ describe('get', function () {
     // Mock up a fake axios-like api instance
     ;[api, mockApi] = makeApi()
     jsonMachine1 = createJsonMachine1()
-    normMachine1 = createNormMachine1()
     jsonWidget1 = createJsonWidget1()
     jsonWidget2 = createJsonWidget2()
     normWidget1 = createNormWidget1()
-    normWidget2 = createNormWidget2()
+    storeMachine1 = createMachineWidget1()
+    storeWidget2 = createStoreWidget2()
     normRecordRels = createNormRecordRels()
     normWidget1Rels = normRecordRels[normWidget1['_jv']['id']]
     jsonRecord = createJsonRecord()
@@ -122,11 +123,12 @@ describe('get', function () {
     await store.get(normWidget1)
 
     // Add isIncluded, remove isData (As would be found in 'real' response)
-    normWidget2._jv.isIncluded = true
-    normMachine1._jv.isIncluded = true
-    delete normWidget2._jv.isData
-    delete normMachine1._jv.isData
-    expect(mergeRecordsMock).to.have.been.calledWith([normWidget2, normMachine1])
+    storeMachine1.machine['1']._jv.isIncluded = true
+    storeWidget2.widget['2']._jv.isIncluded = true
+    delete storeMachine1.machine['1']._jv.isData
+    delete storeWidget2.widget['2']._jv.isData
+    let includes = merge(storeMachine1, storeWidget2)
+    expect(mergeRecordsMock).to.have.been.calledWith(includes)
   })
 
   test('should return normalized data with expanded rels (single item)', async function () {
