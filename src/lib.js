@@ -502,15 +502,15 @@ const Utils = class {
   }
 
   /**
-   * Restructure all records in 'included' (using {@link module:pinia-jsonapi._internal.jsonapiToNormItem})
+   * Restructure all records in 'included' (using {@link module:pinia-jsonapi._internal.jsonapiToNorm})
    * and add to the store.
    * @memberof module:pinia-jsonapi._internal
-   * @param {object} results - Records in storeFormat.
+   * @param {object} results - JSONAPI record
    */
   getIncludedRecords(results) {
     let includes = get(results, ['data', 'included'])
     if (includes) {
-      return this.normToStore(this.jsonapiToNorm(includes, 'isIncluded'))
+      return this.jsonapiToNorm(includes, 'isIncluded')
     }
     return {}
   }

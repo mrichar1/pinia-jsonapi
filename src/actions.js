@@ -134,8 +134,8 @@ const actions = (api, conf, utils) => {
      * @param {(string|object|array)} args - See {@link module:pinia-jsonapi.createJsonapiStore.actions} for a summary of args
      * @param {string}  - A URL path to an item - e.g. `endpoint/1`
      * @param {object}  - A restructured object  - e.g. `{ _jv: { type: "endpoint", id: "1" } }`
-     * @param {array}  - A 2-element array, consisting of a string/object and an optional axios config object
-     * @return {object} Restructured representation of the requested item(s)
+     * @param {array}  - A 2-element array, consisting of a string/object and an optional axios config object.
+     * @return {object} Restructured representation of the requested item(s), keyed by Relationship Name
      */
     async getRelated(args) {
       const [data, config] = utils.unpackArgs(args)
@@ -211,9 +211,15 @@ const actions = (api, conf, utils) => {
       }
       // 'Merge' all promise resolution/rejection
       return Promise.all(relPromises).then((results) => {
-        let allRels = []
+        // allNorm is all records normalised to pass to mergeRecords at end
+        let allNorm = {}
+        // allRelated is all records normalised and stored under relName, to return at end
+        let allRelated = {}
         // Collect the jsonapi data & includes from each response
-        results.forEach(({ data }) => {
+        results.forEach(({ data }, i) => {
+          let allRels = []
+          // Get the relName from the same array position as the result item
+          let relName = relNames[i]
           let res = get(data, ['data'])
           let included = get(data, ['included'])
           if (res) {
@@ -222,12 +228,14 @@ const actions = (api, conf, utils) => {
           if (included) {
             allRels.push(...included)
           }
+          // Restructure the data
+          let norm = utils.jsonapiToNorm(allRels)
+
+          Object.assign(allNorm, norm)
+          merge(allRelated, { [relName]: norm })
         })
-        // Restructure the data
-        allRels = utils.jsonapiToNorm(allRels)
-        this.mergeRecords(allRels)
-        // Use storeFormat: (type: id: object) as may have multiple types
-        return utils.normToStore(allRels)
+        this.mergeRecords(allNorm)
+        return allRelated
       })
     },
     /**

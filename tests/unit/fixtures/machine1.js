@@ -17,13 +17,3 @@ export function normFormat() {
     },
   }
 }
-
-export function storeFormat() {
-  return {
-    machine: {
-      1: {
-        ...normFormat(),
-      },
-    },
-  }
-}

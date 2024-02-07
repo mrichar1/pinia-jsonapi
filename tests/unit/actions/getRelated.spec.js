@@ -4,23 +4,12 @@ import { makeApi } from '../server'
 let api, mockApi
 
 import defaultJsonapiStore from '../utils/defaultJsonapiStore'
-import {
-  jsonFormat as createJsonWidget1,
-  normFormat as createNormWidget1,
-  storeFormat as createStoreWidget1,
-} from '../fixtures/widget1'
-import { jsonFormat as createJsonWidget2, storeFormat as createStoreWidget2 } from '../fixtures/widget2'
+import { jsonFormat as createJsonWidget1, normFormat as createNormWidget1 } from '../fixtures/widget1'
+import { jsonFormat as createJsonWidget2, normFormat as createNormWidget2 } from '../fixtures/widget2'
 import { jsonFormat as createJsonWidget3, normFormat as createNormWidget3 } from '../fixtures/widget3'
 
 describe('getRelated', function () {
-  let jsonWidget1,
-    jsonWidget2,
-    jsonWidget3,
-    normWidget1,
-    storeWidget1,
-    storeWidget2,
-    storeWidget1_3, // eslint-disable-line camelcase
-    store
+  let jsonWidget1, jsonWidget2, jsonWidget3, normWidget1, normWidget2, normWidget3, store
 
   beforeEach(function () {
     ;[api, mockApi] = makeApi()
@@ -29,17 +18,8 @@ describe('getRelated', function () {
     jsonWidget3 = createJsonWidget3()
 
     normWidget1 = createNormWidget1()
-
-    storeWidget1 = createStoreWidget1()
-    storeWidget2 = createStoreWidget2()
-
-    // eslint-disable-next-line camelcase
-    storeWidget1_3 = {
-      widget: {
-        1: createNormWidget1(),
-        3: createNormWidget3(),
-      },
-    }
+    normWidget2 = createNormWidget2()
+    normWidget3 = createNormWidget3()
 
     setActivePinia(createPinia())
     let { jsonapiStore } = defaultJsonapiStore(api)
@@ -65,7 +45,7 @@ describe('getRelated', function () {
 
     const res = await store.getRelated(normWidget1)
 
-    expect(res).to.deep.equal(storeWidget2)
+    expect(res).to.deep.equal({ widgets: { 2: normWidget2 } })
   })
 
   test('should use existing rel info in the object passed in - keys only.', async function () {
@@ -82,7 +62,7 @@ describe('getRelated', function () {
 
     const res = await store.getRelated(normWidget1)
 
-    expect(res).to.deep.equal(storeWidget2)
+    expect(res).to.deep.equal({ widgets: { 2: normWidget2 } })
   })
 
   test('should throw an error fetching resource linkage for unknown relationship.', async function () {
@@ -106,7 +86,7 @@ describe('getRelated', function () {
 
     let res = await store.getRelated('widget/1')
 
-    expect(res).to.deep.equal(storeWidget2)
+    expect(res).to.deep.equal({ widgets: { 2: normWidget2 } })
   })
 
   test("should get a record's single related item (using 'data') - object", async function () {
@@ -116,7 +96,7 @@ describe('getRelated', function () {
 
     let res = await store.getRelated(normWidget1)
 
-    expect(res).to.deep.equal(storeWidget2)
+    expect(res).to.deep.equal({ widgets: { 2: normWidget2 } })
   })
 
   test("should get a record's related items (using 'data')", async function () {
@@ -131,7 +111,7 @@ describe('getRelated', function () {
 
     let res = await store.getRelated('widget/2')
 
-    expect(res).to.deep.equal(storeWidget1_3) // eslint-disable-line camelcase
+    expect(res).to.deep.equal({ widgets: { 1: normWidget1, 3: normWidget3 } }) // eslint-disable-line camelcase
   })
 
   test("should get a record's related items (using 'links' string)", async function () {
@@ -141,7 +121,7 @@ describe('getRelated', function () {
 
     let res = await store.getRelated('widget/1')
 
-    expect(res).to.deep.equal(storeWidget2)
+    expect(res).to.deep.equal({ widgets: { 2: normWidget2 } })
   })
 
   test("should get a record's related items (using 'links' object)", async function () {
@@ -155,7 +135,7 @@ describe('getRelated', function () {
 
     let res = await store.getRelated('widget/1')
 
-    expect(res).to.deep.equal(storeWidget2)
+    expect(res).to.deep.equal({ widgets: { 2: normWidget2 } })
   })
 
   test("should get a record's related items (string path)", async function () {
@@ -169,7 +149,7 @@ describe('getRelated', function () {
 
     let res = await store.getRelated('widget/2')
 
-    expect(res).to.deep.equal(storeWidget1_3) // eslint-disable-line camelcase
+    expect(res).to.deep.equal({ widgets: { 1: normWidget1, 3: normWidget3 } }) // eslint-disable-line camelcase
   })
 
   test('should return related data for a specific relname', async function () {
@@ -177,7 +157,7 @@ describe('getRelated', function () {
 
     let res = await store.getRelated('widget/3/widgets')
 
-    expect(res).to.deep.equal(storeWidget1)
+    expect(res).to.deep.equal({ widgets: { 1: normWidget1 } })
   })
 
   test('Should handle API errors (initial GET)', async function () {
@@ -196,7 +176,7 @@ describe('getRelated', function () {
     delete jsonWidget1['relationships']['widgets']['links']
     mockApi.onGet().replyOnce(200, { data: jsonWidget1 })
     let res = await store.getRelated('widget/1')
-    expect(res).to.deep.equal({})
+    expect(res).to.deep.equal({ widgets: {} })
   })
 
   test('Should handle API errors (in the data)', async function () {
