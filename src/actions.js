@@ -223,15 +223,22 @@ const actions = (api, conf, utils) => {
           let res = get(data, ['data'])
           let included = get(data, ['included'])
           if (res) {
-            allRels.push(res)
+            // Convert items to collections
+            if (!Array.isArray(res)) {
+              res = [res]
+            }
+            allRels.push(...res)
           }
           if (included) {
             allRels.push(...included)
           }
           // Restructure the data
-          let norm = utils.jsonapiToNorm(allRels)
-
-          Object.assign(allNorm, norm)
+          let norm = {}
+          if (allRels.length) {
+            norm = utils.jsonapiToNorm(allRels)
+            Object.assign(allNorm, norm)
+          }
+          // Always set at least { relName: {} } to indicate empty rels
           merge(allRelated, { [relName]: norm })
         })
         this.mergeRecords(allNorm)
