@@ -200,4 +200,32 @@ describe('getRelated', function () {
       expect(error.response.status).to.equal(500)
     }
   })
+
+  test('should handle "global" params in _jv', async function () {
+    mockApi.onAny().reply(200, { data: jsonWidget2 })
+
+    let params = { foo: 'bar' }
+
+    await store.getRelated([normWidget1, { params: params }])
+
+    expect(mockApi.history.get[0].params).to.deep.equal(params)
+  })
+
+  test('should handle per-rel params in _jv', async function () {
+    mockApi.onAny().reply(200, { data: jsonWidget2 })
+
+    let params = {
+      _jv: {
+        widgets: {
+          params: {
+            baz: 'bat',
+          }
+        }
+      }
+    }
+
+    await store.getRelated([normWidget1, params])
+
+    expect(mockApi.history.get[0].params).to.deep.equal(params._jv.widgets.params)
+  })
 })
