@@ -12,18 +12,17 @@ import { createJsonapiStore } from '../../../src/pinia-jsonapi'
 import defaultJsonapiStore from '../utils/defaultJsonapiStore'
 import { jsonFormat as createJsonWidget1, normFormat as createNormWidget1 } from '../fixtures/widget1'
 import { jsonFormat as createJsonWidget2, normFormat as createNormWidget2 } from '../fixtures/widget2'
-import { jsonFormat as createJsonMachine1, normFormat as createNormMachine1 } from '../fixtures/machine1'
+import { jsonFormat as createJsonMachine2, normFormat as createNormMachine2 } from '../fixtures/machine2'
 import { jsonFormat as createJsonRecord, normFormatWithRels as createNormRecordRels } from '../fixtures/record'
 import { createResponseMeta } from '../fixtures/serverResponse'
-import { merge } from 'lodash'
 
 describe('get', function () {
-  let jsonMachine1,
+  let jsonMachine2,
     jsonWidget1,
     jsonWidget2,
     normWidget1,
     normWidget1Rels,
-    normMachine1,
+    normMachine2,
     normWidget2,
     normRecordRels,
     jsonRecord,
@@ -34,12 +33,12 @@ describe('get', function () {
   beforeEach(function () {
     // Mock up a fake axios-like api instance
     ;[api, mockApi] = makeApi()
-    jsonMachine1 = createJsonMachine1()
+    jsonMachine2 = createJsonMachine2()
     jsonWidget1 = createJsonWidget1()
     jsonWidget2 = createJsonWidget2()
     normWidget1 = createNormWidget1()
     normWidget2 = createNormWidget2()
-    normMachine1 = createNormMachine1()
+    normMachine2 = createNormMachine2()
     normRecordRels = createNormRecordRels()
     normWidget1Rels = normRecordRels[normWidget1['_jv']['id']]
     jsonRecord = createJsonRecord()
@@ -114,7 +113,7 @@ describe('get', function () {
     // included array can include objects from different collections
     const data = {
       data: jsonWidget1,
-      included: [jsonWidget2, jsonMachine1],
+      included: [jsonWidget2, jsonMachine2],
     }
     mockApi.onAny().reply(200, data)
 
@@ -124,10 +123,10 @@ describe('get', function () {
 
     // Add isIncluded, remove isData (As would be found in 'real' response)
     normWidget2._jv.isIncluded = true
-    normMachine1._jv.isIncluded = true
+    normMachine2._jv.isIncluded = true
     delete normWidget2._jv.isData
-    delete normMachine1._jv.isData
-    let includes = merge({ 2: normWidget2 }, { 1: normMachine1 })
+    delete normMachine2._jv.isData
+    let includes = [normWidget2, normMachine2]
     expect(mergeRecordsMock).to.have.been.calledWith(includes)
   })
 

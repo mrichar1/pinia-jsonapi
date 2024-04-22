@@ -510,7 +510,12 @@ const Utils = class {
   getIncludedRecords(results) {
     let includes = get(results, ['data', 'included'])
     if (includes) {
-      return this.jsonapiToNorm(includes, 'isIncluded')
+      let norm = []
+      // Include array can have different types, so write to array to avoid id conflicts
+      for (let item of includes) {
+        norm.push(this.jsonapiToNormItem(item, 'isIncluded'))
+      }
+      return norm
     }
     return {}
   }

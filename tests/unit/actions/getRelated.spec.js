@@ -219,9 +219,9 @@ describe('getRelated', function () {
         widgets: {
           params: {
             baz: 'bat',
-          }
-        }
-      }
+          },
+        },
+      },
     }
 
     await store.getRelated([normWidget1, params])
