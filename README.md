@@ -148,7 +148,7 @@ Having created a Vue project, simply add the module to your `store.js`, passing 
 
 ```js
 import axios from 'axios'
-import { jsonapiStore } from 'pinia-jsonapi'
+import { createJsonapiStore } from 'pinia-jsonapi'
 
 const api = axios.create({
   baseURL: 'https://api.example.com/1/api/',
@@ -157,7 +157,7 @@ const api = axios.create({
   },
 })
 
-const myStore = jsonapiStore(api)
+const myStore = createJsonapiStore(api)
 
 export { myStore }
 ```
@@ -173,7 +173,7 @@ const store = myStore()
 **NOTE:** The store is created with the `name/id` `jv` by default - if you wish to instantiate multiple stores, you can pass a name param to `createJsonapiStore` as follows:
 
 ```js
-const myStore = jsonapiStore(api, config, 'store-name')
+const myStore = createJsonapiStore(api, config, 'store-name')
 ```
 
 ## Usage
@@ -750,11 +750,11 @@ Convert a restructured object to its `store` form.
 
 [Configuration API Reference](https://mrichar1.github.io/pinia-jsonapi/module-pinia-jsonapi-Configuration.html)
 
-A config object can be passed to `jsonapiStore` when instantiating. It will override the default options:
+A config object can be passed to `createJsonapiStore` when instantiating. It will override the default options:
 
 ```js
 const config = { jvtag: '_splat' }
-jm = jsonapiStore(api, config)
+jm = createJsonapiStore(api, config)
 ```
 
 ### Config Options

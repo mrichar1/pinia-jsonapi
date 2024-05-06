@@ -10,7 +10,7 @@ The contents of store.js are simplified to just import and instantiate a `pinia-
 
 ```js
 import axios from 'axios'
-import { jsonapiStore } from 'pinia-jsonapi'
+import { createJsonapiStore } from 'pinia-jsonapi'
 
 const api = axios.create({
   baseURL: 'https://api.example.com/1/api/',
@@ -19,7 +19,7 @@ const api = axios.create({
   },
 })
 
-const myStore = jsonapiStore(api)
+const myStore = createJsonapiStore(api)
 
 export { myStore }
 ```
