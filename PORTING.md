@@ -10,7 +10,7 @@ The contents of store.js are simplified to just import and instantiate a `pinia-
 
 ```js
 import axios from 'axios'
-import { jsonapiStore } from 'pinia-jsonapi'
+import { createJsonapiStore } from 'pinia-jsonapi'
 
 const api = axios.create({
   baseURL: 'https://api.example.com/1/api/',
@@ -19,17 +19,17 @@ const api = axios.create({
   },
 })
 
-const myStore = jsonapiStore(api)
+const { jsonapiStore } = createJsonapiStore(api)
 
-export { myStore }
+export { jsonapiStore }
 ```
 
 You then use this in your components by importing and instantiating it:
 
 ```js
-import { myStore } from '../store'
+import { jsonapiStore } from '../store'
 
-const store = myStore()
+const store = jsonapiStore()
 ```
 
 
@@ -63,4 +63,3 @@ this.$store.getters['jv/get']({ _jv: { type: 'Widget' } })
 // pinia-jsonapi
 store.getData({ _jv: { type: 'Widget' } })
 ```
-

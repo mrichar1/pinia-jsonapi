@@ -148,7 +148,7 @@ Having created a Vue project, simply add the module to your `store.js`, passing 
 
 ```js
 import axios from 'axios'
-import { jsonapiStore } from 'pinia-jsonapi'
+import { createJsonapiStore } from 'pinia-jsonapi'
 
 const api = axios.create({
   baseURL: 'https://api.example.com/1/api/',
@@ -157,23 +157,29 @@ const api = axios.create({
   },
 })
 
-const myStore = jsonapiStore(api)
+const { jsonapiStore } = createJsonapiStore(api)
 
-export { myStore }
+export { jsonapiStore }
 ```
 
 The store is then used in components as follows:
 
 ```js
-import { myStore } from '../store'
+import { jsonapiStore } from '../store'
 
-const store = myStore()
+const store = jsonapiStore()
 ```
 
 **NOTE:** The store is created with the `name/id` `jv` by default - if you wish to instantiate multiple stores, you can pass a name param to `createJsonapiStore` as follows:
 
 ```js
-const myStore = jsonapiStore(api, config, 'store-name')
+const { jsonapiStore } = createJsonapiStore(api, config, 'store-name')
+```
+
+The running `config`, `status` tracker and `utils` are also exported by `createJsonapiStore` if needed:
+
+```js
+const { jsonapiStore, config, status, utils } = createJsonapiStore(api)
 ```
 
 ## Usage
@@ -750,11 +756,11 @@ Convert a restructured object to its `store` form.
 
 [Configuration API Reference](https://mrichar1.github.io/pinia-jsonapi/module-pinia-jsonapi-Configuration.html)
 
-A config object can be passed to `jsonapiStore` when instantiating. It will override the default options:
+A config object can be passed to `createJsonapiStore` when instantiating. It will override the default options:
 
 ```js
 const config = { jvtag: '_splat' }
-jm = jsonapiStore(api, config)
+const { jsonapiStore } = createJsonapiStore(api, config)
 ```
 
 ### Config Options
