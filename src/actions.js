@@ -59,13 +59,21 @@ const actions = (api, conf, utils) => {
     }
     // Wait for all individual API calls to complete
     await Promise.all(relPromises)
+    if (!conf.getAfterWrite) {
+      // Return the original server JSONAPI response
+      return data
+    }
     // Get the updated object from the API
+    // This ensures the client is synced for server implementations that don't correctly return server-side changes in the 200 response.
     let params = {}
-    // Also include related objects
     if (conf.relatedIncludes) {
+      // Also include related objects
+      // Most servers don't include the 'other side' of patched relationships in the response, so easier to fetch them than manually update the store
       params['include'] = includes.join()
     }
-    return store.get([`${type}/${id}`, { params: params }])
+    // Use links 'self' url if set, else build from type/id
+    let selfURL = data._jv.links.self || `${type}/${id}`
+    return store.get([selfURL, { params: params }])
   }
 
   /**

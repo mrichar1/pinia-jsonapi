@@ -9,7 +9,7 @@ export function jsonFormat() {
       bar: 'baz',
     },
     links: {
-      self: '/weirdPath/1',
+      self: 'widget/1',
     },
     relationships: {
       widgets: {
@@ -34,7 +34,7 @@ export function jsonFormatPatch() {
       bar: 'baz',
     },
     links: {
-      self: '/weirdPath/1',
+      self: 'widget/1',
     },
     relationships: {
       widgets: {
@@ -59,7 +59,7 @@ export function normFormat() {
       type: 'widget',
       id: '1',
       links: {
-        self: '/weirdPath/1',
+        self: 'widget/1',
       },
       relationships: {
         widgets: {
@@ -102,7 +102,7 @@ export function normFormatUpdate() {
       type: 'widget',
       id: '1',
       links: {
-        self: '/weirdPath/1',
+        self: 'widget/1',
       },
       relationships: {
         widgets: {

@@ -52,6 +52,7 @@ describe('get', function () {
   test('should make an api call to GET item(s)', async function () {
     mockApi.onAny().reply(200, { data: jsonWidget1 })
 
+    normWidget1['_jv']['links']['self'] = 'weirdPath/1'
     await store.get(normWidget1)
 
     expect(mockApi.history.get[0].url).to.equal(normWidget1['_jv']['links']['self'])

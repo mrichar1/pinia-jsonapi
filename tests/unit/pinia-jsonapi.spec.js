@@ -515,6 +515,7 @@ describe('jsonapi-pina tests', function () {
         })
         describe('with links.self', function () {
           test('uses the URL', function () {
+	    normWidget1['_jv']['links']['self'] = '/weirdPath/1'
             expect(utils.getURL(normWidget1)).to.equal('/weirdPath/1')
           })
         })

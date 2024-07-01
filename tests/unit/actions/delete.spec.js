@@ -27,6 +27,7 @@ describe('delete', function () {
   test('should make an api call to DELETE item(s)', async function () {
     mockApi.onAny().reply(204)
 
+    normWidget1['_jv']['links']['self'] = 'weirdPath/1'
     await store.delete(normWidget1)
 
     expect(mockApi.history.delete[0].url).to.equal(normWidget1['_jv']['links']['self'])

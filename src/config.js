@@ -26,4 +26,5 @@ export default {
   recurseRelationships: false,
   maxStatusID: -1,
   relatedIncludes: true,
+  getAfterWrite: true,
 }

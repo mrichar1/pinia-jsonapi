@@ -69,6 +69,22 @@ describe('patchRelated', function () {
     expect(mockApi.history.get[0].url).to.equal('widget/1')
   })
 
+  test('should make a patch request without GET afterwards.', async function () {
+    let { jsonapiStore } = defaultJsonapiStore(api, { getAfterWrite: false }, 'tmp')
+    store = jsonapiStore()
+    mockApi.onPatch().replyOnce(204)
+    mockApi.onGet().replyOnce(200, { data: jsonWidget1 })
+
+    const rel = { data: { type: 'widget', id: '2' } }
+    normWidget1['_jv']['relationships'] = { widgets: rel }
+
+    await store.patchRelated(normWidget1)
+    // Expect a patch call to rel url, with rel payload, but don't then get object to update store
+    expect(mockApi.history.patch[0].url).to.equal('widget/1/relationships/widgets')
+    expect(mockApi.history.patch[0].data).to.deep.equal(JSON.stringify(rel))
+    expect(mockApi.history.get).to.be.empty
+  })
+
   test('should handle multiple relationships', async function () {
     mockApi.onPatch().reply(204)
     mockApi.onGet().replyOnce(200, { data: jsonWidget1 })
