@@ -517,7 +517,7 @@ const Utils = class {
       }
       return norm
     }
-    return {}
+    return []
   }
 
   /**

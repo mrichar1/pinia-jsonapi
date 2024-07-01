@@ -1,6 +1,6 @@
 {
   "name": "pinia-jsonapi",
-  "version": "6.5.0",
+  "version": "6.5.1",
   "description": "Access restructured JSONAPI data from a Pinia Store.",
   "author": "Matthew Richardson <M.Richardson@ed.ac.uk>",
   "scripts": {
