@@ -110,6 +110,14 @@ describe('get', function () {
     expect(res).to.deep.equal(normWidget1)
   })
 
+  test('should handle empty collections', async function () {
+    mockApi.onAny().reply(200, { data: { type: 'widgets', data: [] } })
+
+    let res = await store.get('widgets')
+
+    expect(res).to.have.keys('_jv')
+  })
+
   test('should add included record(s) to the store', async function () {
     // included array can include objects from different collections
     const data = {

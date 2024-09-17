@@ -464,6 +464,10 @@ const Utils = class {
   normToStore(record) {
     let store = {}
     if (this.hasProperty(record, this.jvtag)) {
+      if (!this.hasProperty(record[this.jvtag], 'id')) {
+        // No id means no item to add to store: return empty store
+        return store
+      }
       // Convert item to look like a collection
       record = { [record[this.jvtag]['id']]: record }
     }
