@@ -251,7 +251,7 @@ const params = {
 }
 
 // Get a specific record from the 'widget' endpoint, passing parameters to axios:
-store.get('widget/1', { params: params }).then((data) => {
+store.get(['widget/1', { params: params }]).then((data) => {
   console.log(data)
 })
 
@@ -265,7 +265,7 @@ const newWidget = {
 }
 
 // Create a new widget in the API, using a restructured object, and passing parameters to axios:
-store.post(newWidget, { params: params }).then((data) => {
+store.post([newWidget, { params: params }]).then((data) => {
   console.log(data)
 })
 
@@ -278,16 +278,16 @@ const widgetColor = {
   },
 }
 
-store.patch(widgetColor, { params: params })
+store.patch([widgetColor, { params: params }])
 
 // Fetch, then update a widget in the API
-store.get('widget/1', { params: params }).then((widget1) => {
+store.get(['widget/1', { params: params }]).then((widget1) => {
   widget1['color'] = 'red'
-  store.patch(widget1, { params: params })
+  store.patch([widget1, { params: params }])
 })
 
 // Delete a widget from the API
-store.delete('widget/1', { params: params })
+store.delete(['widget/1', { params: params }])
 ```
 
 #### search
@@ -298,7 +298,7 @@ The `search` action is the same as the `get` action, except that it does not res
 const widgetSearch = (text) => {
   const params = { 'filter[text_contains]': text }
 
-  store.search('widget', { params: params }).then((data) => {
+  store.search(['widget', { params: params }]).then((data) => {
     return data
   })
 }
