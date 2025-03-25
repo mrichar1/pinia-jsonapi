@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, test } from 'vitest'
 import sinonChai from 'sinon-chai'
-import chai from 'chai'
 import sinon from 'sinon'
+import * as chai from 'chai'
 chai.use(sinonChai)
 
 import { setActivePinia, createPinia } from 'pinia'

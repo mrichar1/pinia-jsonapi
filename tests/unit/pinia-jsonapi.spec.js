@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import sinonChai from 'sinon-chai'
 import sinon from 'sinon'
-import chai from 'chai'
+import * as chai from 'chai'
 chai.use(sinonChai)
 
 import { makeApi } from './server'
