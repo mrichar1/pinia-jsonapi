@@ -92,15 +92,14 @@ const sessions = computed(() => status.status)
 const widgets = computed(() => store.getData('widget'))
 const widget1 = computed(() => utils.deepCopy(store.getData('widget/1')))
 
-const patchRecord = ((record) => store.patch(record))
-const postRecord = ((record) => store.post(record))
-const deleteRecord = ((id) => store.delete('widget' + '/' + id))
+const patchRecord = (record) => store.patch(record)
+const postRecord = (record) => store.post(record)
+const deleteRecord = (id) => store.delete('widget' + '/' + id)
 
 store.get('widget')
-store.search('widget')
-  .then((res) => {
-    searchResult = res
-  })
+store.search('widget').then((res) => {
+  searchResult.value = res
+})
 </script>
 
 <style scoped></style>

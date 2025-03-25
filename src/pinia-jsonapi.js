@@ -23,8 +23,7 @@ const createJsonapiStore = (api, conf = {}, name = 'jv') => {
   let status = new ActionStatus(config.maxStatusID)
 
   return {
-    jsonapiStore: defineStore({
-      id: name,
+    jsonapiStore: defineStore(name, {
       state: () => {
         return { [config['jvtag']]: {} }
       },

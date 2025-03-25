@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['eslint:recommended', 'plugin:vue/vue3-recommended', 'plugin:prettier-vue/recommended'],
+  extends: ['eslint:recommended', 'plugin:vue/recommended', 'plugin:prettier-vue/recommended'],
   env: {
     browser: true,
     es6: true,
@@ -9,7 +9,7 @@ module.exports = {
   parserOptions: {
     parser: '@babel/eslint-parser',
     requireConfigFile: false,
-    ecmaVersion: 2018,
+    ecmaVersion: 2019,
     sourceType: 'module',
   },
   rules: {

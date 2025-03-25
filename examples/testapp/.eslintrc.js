@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ['eslint:recommended', 'plugin:vue/vue3-recommended', 'plugin:prettier-vue/recommended'],
+  extends: ['eslint:recommended', 'plugin:vue/recommended', 'plugin:prettier-vue/recommended'],
   plugins: ['prettier'],
   env: {
     node: true,
