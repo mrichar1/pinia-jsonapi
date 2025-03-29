@@ -111,7 +111,7 @@ describe('getRelated', function () {
 
     let res = await store.getRelated('widget/2')
 
-    expect(res).to.deep.equal({ widgets: { 1: normWidget1, 3: normWidget3 } }) // eslint-disable-line camelcase
+    expect(res).to.deep.equal({ widgets: { 1: normWidget1, 3: normWidget3 } })
   })
 
   test("should get a record's related items (using 'links' string)", async function () {
@@ -149,7 +149,7 @@ describe('getRelated', function () {
 
     let res = await store.getRelated('widget/2')
 
-    expect(res).to.deep.equal({ widgets: { 1: normWidget1, 3: normWidget3 } }) // eslint-disable-line camelcase
+    expect(res).to.deep.equal({ widgets: { 1: normWidget1, 3: normWidget3 } })
   })
 
   test('should return related data for a specific relname', async function () {

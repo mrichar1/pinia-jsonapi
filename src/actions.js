@@ -181,7 +181,7 @@ const actions = (api, conf, utils) => {
           try {
             const resLink = await api.get(`${type}/${id}/relationships/${relName}`, relCfg)
             relItems = resLink.data
-          } catch (error) {
+          } catch {
             throw `No such relationship: ${relName}`
           }
         }
