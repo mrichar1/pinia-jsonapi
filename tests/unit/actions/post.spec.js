@@ -59,6 +59,19 @@ describe('post', function () {
     expect(addRecordsMock).to.have.been.calledWith(normWidget1)
   })
 
+  test('should handle 201 response with no data, but other top-level members', async function () {
+    let { jsonapiStore } = createJsonapiStore(api, { preserveJson: true }, 'tmp')
+    store = jsonapiStore()
+
+    mockApi.onAny().reply(201, { meta: { some: 'value' } })
+
+    let addRecordsMock = sinon.stub(store, 'addRecords')
+    let res = await store.post(normWidget1)
+
+    expect(addRecordsMock).to.have.been.calledWith(normWidget1)
+    expect(res['_jv']['json']).to.include.keys('meta')
+  })
+
   test('should add record(s) in the store (no server response)', async function () {
     mockApi.onAny().reply(204)
 

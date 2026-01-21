@@ -311,7 +311,8 @@ const actions = (api, conf, utils) => {
 
         // If the server handed back data, store it (to get id)
         // spec says 201, but some servers (wrongly) return 200
-        if (results.status === 200 || results.status === 201) {
+        // 201 can optionally also return no data, just other top-level (e.g. meta)
+        if ((results.status === 200 || results.status === 201) && 'data' in results.data) {
           data = utils.jsonapiToNorm(results.data.data)
         }
         this.addRecords(data)

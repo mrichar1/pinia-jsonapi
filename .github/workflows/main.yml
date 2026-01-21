@@ -12,6 +12,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -22,7 +26,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Test Suite
         run: |
@@ -34,17 +38,15 @@ jobs:
 
       - name: Setup Node.js
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           registry-url: 'https://registry.npmjs.org'
 
       - name: Publish to NPM
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
-        run: yarn publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      
+        run: npm publish
+
       - name: Documentation gh-pages push
         # Only update docs branch for pushes with tags
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
